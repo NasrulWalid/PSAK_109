@@ -16,10 +16,17 @@
             <x-input-error :messages="$errors->get('nama_pt')" class="mt-2" />
         </div>
 
+        {{-- Alamat PT --}}
+        <div class="mt-4">
+            <x-input-label for="alamat" :value="__('Alamat PT')" />
+            <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autofocus autocomplete="alamat" placeholder="Masukkan Alamat PT Anda" />
+            <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
+        </div>
+
         {{-- Nomor Whatsapp --}}
         <div class="mt-4">
             <x-input-label for="nomor_wa" :value="__('Nomor WhatsApp')" />
-            <x-text-input id="nomor_wa" class="block mt-1 w-full" type="number" name="nomor_wa" :value="old('nomor_wa')" required autofocus autocomplete="nama_pt" placeholder="Masukkan Nomor WhatsApp Anda" />
+            <x-text-input id="nomor_wa" class="block mt-1 w-full" type="number" name="nomor_wa" :value="old('nomor_wa')" required autofocus autocomplete="nomor_wa" placeholder="Masukkan Nomor WhatsApp Anda" />
             <x-input-error :messages="$errors->get('nomor_wa')" class="mt-2" />
         </div>
 
@@ -33,23 +40,14 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" placeholder="Masukkan Password Anda" />
-
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" placeholder="Masukkan Password Anda" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Konfirmasi Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" placeholder="Masukkan Ulang Password Anda"/>
-
+            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Masukkan Ulang Password Anda"/>
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 

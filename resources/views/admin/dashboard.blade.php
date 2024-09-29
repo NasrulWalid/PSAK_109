@@ -1,17 +1,33 @@
-<x-app-layout>
-  <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          {{ __('Dashboard') }}
-      </h2>
-  </x-slot>
+@extends('admin.layouts.layout')
 
-  <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              <div class="p-6 text-gray-900">
-                  {{ __("You're logged in!") }}
-              </div>
+@section('title', 'Dashboard')
+
+@section('content')
+
+     <!-- Main Content -->
+     <div class="main-content">
+
+        <section class="section">
+          <div class="section-header">
+            <h1>Default Layout</h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+              <div class="breadcrumb-item"><a href="#">Layout</a></div>
+              <div class="breadcrumb-item">Default Layout</div>
+            </div>
           </div>
+          <div class="section-body">
+            <h2 class="section-title">You're logged in!</h2>
+            <p class="section-lead">This page is just an example for you to create your own page.</p>
+            <div class="card">
+              <div class="card-header">
+                <h4>Example Card</h4>
+              </div>
+              <div class="card-footer bg-whitesmoke">
+                This is card footer
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-  </div>
-</x-app-layout>
+@endsection
