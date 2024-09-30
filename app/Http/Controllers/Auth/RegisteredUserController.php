@@ -49,6 +49,7 @@ class RegisteredUserController extends Controller
     // Jika nama PT belum ada, tambahkan ke tbl_pt
     if (!$ptExists) {
         DB::table('tbl_pt')->insert([
+            'id_pt' => uniqid(), // Generate ID unik
             'nama_pt' => $namaPt,
             'alamat' => $alamatPt, // Masukkan alamat ke dalam tabel
         ]);
