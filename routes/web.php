@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PricingController;
 
 Route::get('/', function () {
     return view('landing/home');
@@ -23,3 +24,6 @@ require __DIR__.'/auth.php';
 
 route::get('admin/dashboard',[HomeController::class,'index'])->
 middleware(['auth','admin']);
+
+// Route untuk menampilkan halaman price
+Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.show');
