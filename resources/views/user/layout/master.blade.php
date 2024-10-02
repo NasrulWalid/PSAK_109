@@ -1,9 +1,9 @@
-@include('user.layout.header')
+@include('layouts.header')
 
-@include('user.layout.navbar')
+@include('layouts.navbar')
 
-@include('user.layout.sidebar')
+@include('layouts.sidebar')
 
 @include('user.layout.content')
 
-@include('user.layout.footer')
+@include('layouts.footer')
