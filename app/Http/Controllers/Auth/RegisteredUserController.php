@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
     // Buat pengguna baru
     $user = User::create([
         'name' => $request->name,
-        'nama_pt' => $ptId, // Gunakan ID PT yang sesuai
+        'id_pt' => $ptId, // Gunakan ID PT yang sesuai
         'nomor_wa' => $request->nomor_wa,
         'email' => $request->email,
         'password' => Hash::make($request->password),

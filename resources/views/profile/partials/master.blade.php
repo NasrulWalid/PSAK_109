@@ -1,9 +1,9 @@
-@include('admin.layout.header')
+@include('layouts.header')
 
-@include('admin.layout.navbar')
+@include('layouts.navbar')
 
-@include('admin.layout.sidebar')
+@include('layouts.sidebar')
 
 @include('profile.partials.content')
 
-@include('admin.layout.footer')
+@include('layouts.footer')
