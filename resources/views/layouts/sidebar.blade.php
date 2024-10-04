@@ -9,26 +9,27 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('lte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-        </div>
-      </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <div class="image">
+                <img src="{{ asset('lte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info ms-2">
+              <span class=" d-block" style="font-size: 1.5rem; color: rgb(255, 255, 255);">{{ Auth::user()->name }}</span> <!-- User Type Info -->
+              <span class="text-muted" style="color: rgb(255, 255, 255);">
+                  {{ Auth::user()->usertype }}
+                  <span class="online-status ms-2"></span> <!-- Green dot for online status -->
+              </span>
           </div>
+          
         </div>
-      </div>
+        <a href="{{ route('profile.edit') }}" class="gear-icon">
+            <i class="fas fa-cog"></i> <!-- Icon gear -->
+        </a>
+    </div>
+    
+      <!-- SidebarSearch Form -->
+
 
       <!-- Sidebar Menu -->
 <nav class="mt-2">
@@ -78,7 +79,7 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">{{ Auth::user()->role }} Menu</h6>
+                    <h6 class="collapse-header">Menu</h6>
                     <a class="collapse-item" href="">tblmaster</a>
                     <a class="collapse-item" href="">tblcorporateloancabangdetail</a>
                 </div>
@@ -88,10 +89,9 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Administrator Options (Only visible for admins) -->
-        @if (Auth::user()->usertype === 'admin')
+        <!-- Administrator Options -->
         <div class="sidebar-heading">
-            Options <!-- Visible only for admin -->
+            Options 
         </div>
 
         <!-- User Management -->
@@ -109,9 +109,28 @@
                 <span>Activity Log</span>
             </a>
         </li>
-        @endif
+
     </ul>
 </nav>
     </div>
     <!-- /.sidebar -->
   </aside>
+
+  <style>
+    .online-status {
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+    .gear-icon {
+        color: #b8c7ce;
+        font-size: 1.2rem;
+    }
+
+    .gear-icon:hover {
+        color: #ffffff; /* Change color on hover */
+    }
+  </style>
