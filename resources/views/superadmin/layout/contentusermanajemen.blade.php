@@ -3,7 +3,9 @@
         <div class="col-md-10 offset-md-1"> <!-- Menentukan lebar konten dan menggeser ke kanan -->
             <div class="card">
                 <div class="card-header">
-                    <a href="/add/user" class="btn btn-primary btn-md float-end">Tambah User</a>
+                    <a href="/add/user" class="btn btn-primary btn-md float-end">
+                        <i class="fas fa-plus"></i> Tambah User <!-- Menambahkan ikon plus -->
+                    </a>
                 </div>
                 @if (Session::has('success'))
                     <span class="alert alert-success p-1">{{ Session::get('success') }}</span>
@@ -40,8 +42,16 @@
                                         <td>{{ $item->role }}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
-                                        <td><a href="/edit/{{ $item->id }}" class="btn btn-primary btn-sm">Edit</a></td>
-                                        <td><a href="/delete/{{ $item->id }}" class="btn btn-danger btn-sm">Delete</a></td>
+                                        <td>
+                                            <a href="/edit/{{ $item->id }}" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-pencil-alt"></i> Edit <!-- Menambahkan ikon pensil -->
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/delete/{{ $item->id }}" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i> Delete <!-- Menambahkan ikon sampah -->
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else
