@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('id_pt'); // Menambahkan kolom untuk foreign key
             $table->string('nomor_wa'); // Nomor WhatsApp
             $table->string('email')->unique(); // Email yang unik
-            $table->string('usertype')->default('admin'); // Tipe pengguna, default 'user'
+            $table->string('role')->default('admin');// Tipe pengguna, default 'user'
             $table->timestamp('email_verified_at')->nullable(); // Timestamp untuk verifikasi email
             $table->string('password'); // Password
             $table->rememberToken(); // Token untuk mengingat pengguna

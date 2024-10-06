@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-
-class Admin
+class SuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,7 +15,7 @@ class Admin
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {    
+    {
         // if user is not logged in
         if (!Auth::check()){
             return redirect()->route('login');
@@ -26,19 +25,20 @@ class Admin
 
         // Super Admin
         if ($userRole == 'superadmin'){
-            return redirect()->route('superadmin.dashboard');
-            
+            return $next($request);
         }
         
         // Admin
         elseif ($userRole == 'admin'){
-            return $next($request);
-        }
-        
-        // Normal User
+        return redirect()->route('admin.dashboard');
+    }
+    
+        // Nomral User
         elseif ($userRole == 'user'){
             return redirect()->route('dashboard');
+
         }
-    
     }
+
+
 }
