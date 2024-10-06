@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PricingController;
+use App\Http\Controllers\ManajemenController;
 
 Route::get('/', function () {
     return view('landing/home');
@@ -35,3 +36,18 @@ require __DIR__.'/auth.php';
 
 // Route untuk menampilkan halaman price
 Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.show');
+
+// Route untuk menampilkan halaman manajemen user
+Route::middleware(['auth', 'superadmin'])->group(function () {
+    Route::get('/usermanajemen', [ManajemenController::class, 'index'])->name('usermanajemen');
+});
+
+// Route untuk menambah user
+Route::get('/add/user', [ManajemenController::class, 'tambahuser']);
+Route::post('/add/user', [ManajemenController::class, 'AddUser'])->name('AddUser');
+
+// Route untuk edit user
+Route::get('/edit/{id}', [ManajemenController::class,'loadedit']);
+Route::get('/delete/{id}', [ManajemenController::class,'delete']);
+
+Route::post('/edit/user', [ManajemenController::class,'EditUser'])->name('EditUser');

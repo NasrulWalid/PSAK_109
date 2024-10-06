@@ -4,6 +4,6 @@
 
 @include('superadmin.layout.sidebar')
 
-@include('superadmin.layout.content')
+@include('superadmin.layout.contentusermanajemen')
 
 @include('layouts.footer')
