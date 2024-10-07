@@ -2,8 +2,8 @@
 
 @include('layouts.navbar')
 
-@include('layouts.sidebar')
+@include('superadmin.layout.sidebar')
 
-@include('profile.partials.content')
+@include('superadmin.layout.content')
 
 @include('layouts.footer')

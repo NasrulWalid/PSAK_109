@@ -2,7 +2,7 @@
 
 @include('layouts.navbar')
 
-@include('layouts.sidebar')
+@include('admin.layout.sidebar')
 
 @include('admin.layout.content')
 

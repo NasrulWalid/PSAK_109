@@ -15,17 +15,17 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id(); // Primary key 'id' dengan auto-increment
             $table->string('name'); // Nama pengguna
-            $table->string('nama_pt'); // Menambahkan kolom untuk foreign key
+            $table->string('id_pt'); // Menambahkan kolom untuk foreign key
             $table->string('nomor_wa'); // Nomor WhatsApp
             $table->string('email')->unique(); // Email yang unik
-            $table->string('usertype')->default('user'); // Tipe pengguna, default 'user'
+            $table->string('role')->default('admin');// Tipe pengguna, default 'user'
             $table->timestamp('email_verified_at')->nullable(); // Timestamp untuk verifikasi email
             $table->string('password'); // Password
             $table->rememberToken(); // Token untuk mengingat pengguna
             $table->timestamps(); // Menambahkan created_at dan updated_at
 
             // Menambahkan foreign key constraint
-            $table->foreign('nama_pt')->references('id_pt')->on('tbl_pt')->onDelete('cascade');
+            $table->foreign('id_pt')->references('id_pt')->on('tbl_pt')->onDelete('cascade');
         });
 
         // Membuat tabel password_reset_tokens
@@ -60,7 +60,7 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['nama_pt']); // Menghapus foreign key
+            $table->dropForeign(['id_pt']); // Menghapus foreign key
         });
 
         // Menghapus tabel

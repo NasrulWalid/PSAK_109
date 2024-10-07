@@ -1,73 +1,190 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
-  
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
+<nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top" id="navbar">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+  </ul>
+
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto">
+    <!-- Toggle Switch for Dark Mode -->
+    <li class="nav-item d-flex align-items-center">
+      <span id="darkModeIcon" class="mr-2"><i class="fas fa-sun"></i></span>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider round"></span>
+      </label>
+    </li>
+
+    <!-- Navbar Search -->
+    <li class="nav-item">
+      <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+        <i class="fas fa-search"></i>
+      </a>
+      <div class="navbar-search-block">
+        <form class="form-inline">
+          <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-navbar" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+              <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                <i class="fas fa-times"></i>
+              </button>
             </div>
-          </form>
-        </div>
-      </li>
-  
-      <!-- Messages Dropdown Menu -->
-      <!-- Code for Messages... -->
-  
-      <!-- Notifications Dropdown Menu -->
-      <!-- Code for Notifications... -->
-  
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-  
-      <!-- Settings Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#" role="button">
-          <i class="fas fa-user"></i>
-          <span>{{ Auth::user()->name }}</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="{{ route('profile.edit') }}" class="dropdown-item">
-            <i class="fas fa-user-cog"></i> Profile
-          </a>
-          <div class="dropdown-divider"></div>
-          <!-- Authentication -->
-          <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="dropdown-item">
-              <i class="fas fa-sign-out-alt"></i> Log Out
-            </button>
-          </form>
-        </div>
-      </li>
-    </ul>
-  </nav>
-  
+          </div>
+        </form>
+      </div>
+    </li>
+
+    <!-- Messages Dropdown Menu -->
+    <!-- Notifications Dropdown Menu -->
+
+    <li class="nav-item">
+      <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <i class="fas fa-expand-arrows-alt"></i>
+      </a>
+    </li>
+    
+    <!-- Logout Button -->
+    <li class="nav-item align-items-center">
+      <form method="POST" action="{{ route('logout') }}" class="d-inline">
+        @csrf
+        <button type="submit" class="btn btn-danger btn-sm logout-button" style="margin-top: 5px; padding: 5px 10px;">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </button>
+      </form>
+    </li>
+  </ul>
+</nav>
+
+<!-- JavaScript for Dark Mode -->
+<script>
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const navbar = document.getElementById('navbar');
+  const body = document.body;
+  const darkModeIcon = document.getElementById('darkModeIcon');
+
+  darkModeToggle.addEventListener('change', function () {
+    // Toggle dark mode classes
+    navbar.classList.toggle('navbar-dark');
+    navbar.classList.toggle('navbar-light');
+    navbar.classList.toggle('bg-dark');
+    navbar.classList.toggle('bg-white');
+
+    // Toggle dark mode for body
+    body.classList.toggle('dark-mode');
+
+    // Change icon between sun and moon
+    if (darkModeToggle.checked) {
+      darkModeIcon.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+      darkModeIcon.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+  });
+</script>
+
+<!-- Add this CSS for Dark Mode Toggle Switch, Dark Mode Styling, and Icon Alignment -->
+<style>
+  /* Style for Toggle Switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    margin-left: 5px;
+    margin-top: 5px; /* Tambahkan margin-top agar sejajar */
+  }
+
+  .switch input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 25px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2.5px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(25px);
+  }
+
+  /* Dark Mode Styling */
+  .dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  .dark-mode a {
+    color: #ffffff;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: #000000 !important; /* Ensuring icons remain white in dark mode */
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+    color: #000000 !important; /* Ensuring icons remain black in light mode */
+  }
+
+  /* Ensure the sidebar is visible in dark mode */
+  .dark-mode .main-sidebar {
+    background-color: #343a40;
+  }
+
+  /* Align the toggle switch with the rest of the navbar */
+  .nav-item .switch {
+    vertical-align: middle;
+  }
+
+  /* Icon styles for sun and moon */
+  #darkModeIcon {
+    font-size: 1.2rem;
+    color: #00bbff;
+  }
+
+  .dark-mode #darkModeIcon {
+    color: #f0e68c;
+  }
+
+  /* Ensuring all navbar icons are visible */
+  .navbar .nav-link i {
+    color: inherit !important; /* Ensure icons use the correct color based on the mode */
+  }
+
+  /* Styling for Logout Button */
+  .logout-button {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .logout-button:hover {
+    background-color: #ff4d4d; /* Change the background color on hover */
+    transform: translateY(-2px); /* Move the button up slightly */
+  }
+</style>
