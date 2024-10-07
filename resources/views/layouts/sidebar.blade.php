@@ -56,34 +56,97 @@
             Menu
         </div>
 
-        <!-- Report Dropdown -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
-                <i class="fas fa-fw fa-chart-line"></i>
-                <span>Report</span>
-            </a>
-            <div id="collapseReport" class="collapse" aria-labelledby="headingReport" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="">View Reports</a>
-                    <a class="collapse-item" href="#">Generate Report</a>
-                </div>
-            </div>
-        </li>
+  <!-- Report Dropdown -->
+  <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
+    <p>
+        Report
+        <i class="nav-arrow bi bi-chevron-right"></i>
+    </p>
+</a>
+<ul class="nav nav-treeview">
+    <li class="nav-item"> <a href="./widgets/small-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Report Amortised Cost</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/info-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Report Amortised Initial Cost</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Report Amortised Initial Fee</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Report Expective Cash Flow</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Report Interest Deferred</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Report Journal</p>
+        </a> </li>
+</ul>
+</li>
 
-        <!-- Upload Data File Dropdown -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-folder-open"></i>
-                <span>Upload Data File</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">{{ Auth::user()->role }} Menu</h6>
-                    <a class="collapse-item" href="">tblmaster</a>
-                    <a class="collapse-item" href="">tblcorporateloancabangdetail</a>
-                </div>
-            </div>
-        </li>
+        <!-- Report Dropdown -->
+  <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
+    <p>
+        Upload Data Files
+        <i class="nav-arrow bi bi-chevron-right"></i>
+    </p>
+</a>
+<ul class="nav nav-treeview">
+    <li class="nav-item"> <a href="./widgets/small-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Upload File TbiMaster_tmp</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/info-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Upload File TblMaster_tmp/C</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+            <p>Upload File TblMaster_tmpPartialCP</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblMaster_tmpFullCP</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TolMaster_tmpRestructuring</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TbiMaster_tmpimpairment</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TbiMaster_tmpCorporateReview</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File ThlMaster_Month</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblDataCorporateLoan</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblDataPartialCP</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblDataPartialCP</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblDataFullCapPredummy</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblDataRestructuring</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblDatalmpairment</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TblinterestChange</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File THIPDLGDMaster</p>
+        </a> </li>
+    <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+          <p>Upload File TbIPDLGDTRX</p>
+        </a> </li>
+    
+</ul>
+</li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -112,6 +175,7 @@
         @endif
     </ul>
 </nav>
+<br><br><br><br>
     </div>
     <!-- /.sidebar -->
   </aside>
