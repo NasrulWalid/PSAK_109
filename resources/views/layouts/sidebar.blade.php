@@ -85,7 +85,6 @@
 </ul>
 </li>
 
-<<<<<<< HEAD
         <!-- Report Dropdown -->
   <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
     <p>
@@ -148,22 +147,6 @@
     
 </ul>
 </li>
-=======
-        <!-- Upload Data File Dropdown -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-folder-open"></i>
-                <span>Upload Data File</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Menu</h6>
-                    <a class="collapse-item" href="">tblmaster</a>
-                    <a class="collapse-item" href="">tblcorporateloancabangdetail</a>
-                </div>
-            </div>
-        </li>
->>>>>>> 0234c170f1579d5b3885709ddf131d00b3a8dcbf
 
         <!-- Divider -->
         <hr class="sidebar-divider">
