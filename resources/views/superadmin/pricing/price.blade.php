@@ -2,7 +2,7 @@
 
 @include('layouts.navbar')
 
-@include('layouts.sidebar')
+@include('superadmin.layout.sidebar')
 
 @include('pricing.content-pricing')
 

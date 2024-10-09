@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Jalankan migrasi.
      */
     public function up(): void
     {
@@ -15,17 +15,17 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id(); // Primary key 'id' dengan auto-increment
             $table->string('name'); // Nama pengguna
-            $table->string('id_pt'); // Menambahkan kolom untuk foreign key
-            $table->string('nomor_wa'); // Nomor WhatsApp
+            $table->string('nama_pt'); // Nama Perusahaan
+            $table->string('alamat_pt'); // Alamat Perusahaan
+            $table->string('company_type'); // Jenis perusahaan
+            $table->string('nomor_wa'); // Nomor WhatsApp, bisa kosong
             $table->string('email')->unique(); // Email yang unik
-            $table->string('role')->default('admin');// Tipe pengguna, default 'user'
-            $table->timestamp('email_verified_at')->nullable(); // Timestamp untuk verifikasi email
+            $table->string('role')->default('admin'); // Default role adalah admin
             $table->string('password'); // Password
+            $table->boolean('is_activated')->default(true); // Status aktivasi default ke true
+            $table->timestamp('email_verified_at')->nullable(); // Waktu verifikasi email
             $table->rememberToken(); // Token untuk mengingat pengguna
             $table->timestamps(); // Menambahkan created_at dan updated_at
-
-            // Menambahkan foreign key constraint
-            $table->foreign('id_pt')->references('id_pt')->on('tbl_pt')->onDelete('cascade');
         });
 
         // Membuat tabel password_reset_tokens
@@ -37,30 +37,26 @@ return new class extends Migration
 
         // Membuat tabel sessions
         Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary(); // Primary key untuk session id
+            $table->string('id')->primary(); // Primary key untuk session ID
             $table->foreignId('user_id')->nullable()->index(); // Foreign key ke tabel users
-            $table->string('ip_address', 45)->nullable(); // Alamat IP
-            $table->text('user_agent')->nullable(); // User agent
+            $table->string('ip_address', 45)->nullable(); // Alamat IP (IPv4 atau IPv6)
+            $table->text('user_agent')->nullable(); // String user agent
             $table->longText('payload'); // Payload session
-            $table->integer('last_activity')->index(); // Timestamp terakhir aktivitas
+            $table->integer('last_activity')->index(); // Timestamp aktivitas terakhir
 
-            // Menambahkan foreign key constraint untuk user_id
+            // Menambahkan foreign key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Membalik migrasi.
      */
     public function down(): void
     {
         // Menghapus foreign key sebelum menghapus tabel
         Schema::table('sessions', function (Blueprint $table) {
-            $table->dropForeign(['user_id']); // Menghapus foreign key
-        });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['id_pt']); // Menghapus foreign key
+            $table->dropForeign(['user_id']); // Menghapus foreign key untuk user_id
         });
 
         // Menghapus tabel

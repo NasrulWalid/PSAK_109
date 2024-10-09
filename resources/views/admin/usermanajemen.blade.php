@@ -2,8 +2,8 @@
 
 @include('layouts.navbar')
 
-@include('layouts.sidebar')
+@include('admin.layout.sidebar')
 
-@include('pricing.content-pricing')
+@include('admin.layout.contentusermanajemen')
 
 @include('layouts.footer')

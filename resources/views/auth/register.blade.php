@@ -18,9 +18,21 @@
 
         {{-- Alamat PT --}}
         <div class="mt-4">
-            <x-input-label for="alamat" :value="__('Alamat PT')" />
-            <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autofocus autocomplete="alamat" placeholder="Masukkan Alamat PT Anda" />
-            <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
+            <x-input-label for="alamat_pt" :value="__('Alamat PT')" />
+            <x-text-input id="alamat_pt" class="block mt-1 w-full" type="text" name="alamat_pt" :value="old('alamat_pt')" required autofocus autocomplete="alamat_pt" placeholder="Masukkan Alamat PT Anda" />
+            <x-input-error :messages="$errors->get('alamat_pt')" class="mt-2" />
+        </div>
+
+        {{-- Company Type --}}
+        <div class="mt-4">
+            <x-input-label for="company_type" :value="__('Tipe Perusahaan')" />
+            <select id="company_type" class="block mt-1 w-full" name="company_type" required>
+                <option value="">--Pilih Tipe Perusahaan</option>
+                <option value="Bank" {{ old('company_type') == 'swasta' ? 'selected' : '' }}>Bank</option>
+                <option value="Perusahaan Pembiayaan" {{ old('company_type') == 'negeri' ? 'selected' : '' }}>Perusahaan Pembiayaan</option>
+                <option value="Perusahaan Asuransi" {{ old('company_type') == 'ngo' ? 'selected' : '' }}>Perusahaan Asuransi</option>
+            </select>
+            <x-input-error :messages="$errors->get('company_type')" class="mt-2" />
         </div>
 
         {{-- Nomor Whatsapp --}}

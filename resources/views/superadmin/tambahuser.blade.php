@@ -9,8 +9,11 @@
 <body>
 
     <div class="container mt-5 p-4 border rounded shadow">
+        <a href="{{ route('usermanajemen') }}" class="btn btn-secondary">
+            {{ __('Kembali ke User Manajemen') }}
+        </a>
         <h2 class="mb-4 text-center">Form Tambah Pengguna</h2>
-        <form method="POST" action="{{ route('AddUser') }}">
+        <form method="POST" action="{{ route('superadmin.AddUser') }}">
             @csrf
 
             <div class="row">
@@ -32,9 +35,9 @@
             <div class="row">
                 <!-- Alamat PT -->
                 <div class="col-md-6 mb-3">
-                    <x-input-label for="alamat" :value="__('Alamat PT')" />
-                    <x-text-input id="alamat" class="form-control" type="text" name="alamat" :value="old('alamat')" required autofocus autocomplete="alamat" placeholder="Masukkan Alamat PT Anda" />
-                    <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
+                    <x-input-label for="alamat_pt" :value="__('Alamat PT')" />
+                    <x-text-input id="alamat_pt" class="form-control" type="text" name="alamat_pt" :value="old('alamat_pt')" required autofocus autocomplete="alamat_pt" placeholder="Masukkan Alamat PT Anda" />
+                    <x-input-error :messages="$errors->get('alamat_pt')" class="mt-2" />
                 </div>
 
                 <!-- Nomor WhatsApp -->
@@ -66,13 +69,27 @@
             </div>
 
             <div class="row">
+                <!-- Company Type (Dropdown) -->
+                <div class="col-md-6 mb-3">
+                    <x-input-label for="company_type" :value="__('Tipe Perusahaan')" />
+                    <select id="company_type" class="form-control" name="company_type" required>
+                        <option value="">-- Pilih Tipe Perusahaan --</option>
+                        <option value="Bank">Bank</option>
+                        <option value="Perusahaan Pembiayaan">Perusahaan Pembiayaan</option>
+                        <option value="Perusahaan Asuransi">Perusahaan Asuransi</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('company_type')" class="mt-2" />
+                </div>
+
                 <!-- Password -->
                 <div class="col-md-6 mb-3">
                     <x-input-label for="password" :value="__('Password')" />
                     <x-text-input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" placeholder="Masukkan Password Anda" />
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
+            </div>
 
+            <div class="row">
                 <!-- Konfirmasi Password -->
                 <div class="col-md-6 mb-3">
                     <x-input-label for="password_confirmation" :value="__('Konfirmasi Password')" />

@@ -93,14 +93,6 @@
             Options 
         </div>
 
-        <!-- User Management -->
-        <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-user"></i>
-                <span>User Management</span>
-            </a>
-        </li>
-
         <!-- Activity Log -->
         <li class="nav-item">
             <a class="nav-link" href="">

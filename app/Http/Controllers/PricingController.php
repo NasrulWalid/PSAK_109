@@ -15,4 +15,8 @@ class PricingController extends Controller
     {
         return view('pricing.price');
     }
+    public function showsuperadmin()
+    {
+        return view('superadmin.pricing.price');
+    }
 }
