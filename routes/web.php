@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
 // Rute untuk halaman pricing
 require __DIR__.'/auth.php';
 Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.show');
-Route::get('/pricing', [PricingController::class, 'showsuperadmin'])->name('superadmin.pricing.show');
+
 
 // Rute untuk manajemen user (Super Admin)
 Route::middleware(['auth', 'superadmin'])->group(function () {
