@@ -41,6 +41,7 @@
                                     <th>Nama Lengkap</th>
                                     <th>Nama PT</th>
                                     <th>Alamat PT</th>
+                                    <th>Company Type</th> <!-- Kolom baru untuk company_type -->
                                     <th>Nomor WhatsApp</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -57,6 +58,7 @@
                                         <td>{{ auth()->user()->name }}</td>
                                         <td>{{ auth()->user()->nama_pt ?? 'N/A' }}</td>
                                         <td>{{ auth()->user()->alamat_pt ?? 'N/A' }}</td>
+                                        <td>{{ auth()->user()->company_type ?? 'N/A' }}</td>
                                         <td>{{ auth()->user()->nomor_wa }}</td>
                                         <td>{{ auth()->user()->email }}</td>
                                         <td>{{ ucfirst(auth()->user()->role) }}</td>
@@ -74,39 +76,42 @@
                                         </td>
                                     </tr>
 
-                                    <!-- Menampilkan data user lain yang memiliki nama_pt sama dengan admin, kecuali admin yang login -->
+                                    <!-- Menampilkan data user lain, kecuali yang role-nya superadmin atau admin yang login -->
                                     @foreach ($all_users->where('id', '!=', auth()->user()->id) as $index => $user)
-                                        <tr>
-                                            <td>{{ $index + 2 }}</td> <!-- Mulai dari 2 karena admin ditampilkan pertama -->
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->nama_pt ?? 'N/A' }}</td>
-                                            <td>{{ $user->alamat_pt ?? 'N/A' }}</td>
-                                            <td>{{ $user->nomor_wa }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ ucfirst($user->role) }}</td>
-                                            <td>{{ $user->created_at->format('d M Y') }}</td>
-                                            <td>{{ $user->updated_at->format('d M Y') }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.edit.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-pencil-alt"></i> Edit
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.delete.user', ['id' => $user->id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        @if ($user->role != 'superadmin') <!-- Sembunyikan superadmin -->
+                                            <tr>
+                                                <td>{{ $index + 2 }}</td> <!-- Mulai dari 2 karena admin ditampilkan pertama -->
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->nama_pt ?? 'N/A' }}</td>
+                                                <td>{{ $user->alamat_pt ?? 'N/A' }}</td>
+                                                <td>{{ $user->company_type ?? 'N/A' }}</td> <!-- Menampilkan company_type user -->
+                                                <td>{{ $user->nomor_wa }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ ucfirst($user->role) }}</td>
+                                                <td>{{ $user->created_at->format('d M Y') }}</td>
+                                                <td>{{ $user->updated_at->format('d M Y') }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.edit.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-pencil-alt"></i> Edit
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admin.delete.user', ['id' => $user->id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
 
-                                    @if ($all_users->where('id', '!=', auth()->user()->id)->isEmpty())
+                                    @if ($all_users->where('id', '!=', auth()->user()->id)->where('role', '!=', 'superadmin')->isEmpty())
                                         <tr>
-                                            <td colspan="10" class="text-center">No User Found!</td>
+                                            <td colspan="11" class="text-center">No User Found!</td>
                                         </tr>
                                     @endif
                                 @else
                                     <tr>
-                                        <td colspan="10" class="text-center">Access Denied! Only Admin can view this page.</td>
+                                        <td colspan="11" class="text-center">Access Denied! Only Admin can view this page.</td>
                                     </tr>
                                 @endif
                             </tbody>

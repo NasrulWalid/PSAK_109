@@ -67,13 +67,23 @@
             </div>
 
             <div class="row">
+                <!-- Company Type -->
+                <div class="col-md-6 mb-3">
+                    <label for="company_type">Tipe Perusahaan</label>
+                    <input id="company_type" class="form-control" type="text" name="company_type" value="{{ auth()->user()->company_type }}" disabled />
+                    @error('company_type') <small class="text-danger">{{ $message }}</small> @enderror
+                    <input type="hidden" name="company_type" value="{{ auth()->user()->company_type }}"> <!-- Mengirimkan nilai tersembunyi -->
+                </div>
+
                 <!-- Password -->
                 <div class="col-md-6 mb-3">
                     <label for="password">Password</label>
                     <input id="password" class="form-control" type="password" name="password" required placeholder="Masukkan Password Anda" />
                     @error('password') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
+            </div>
 
+            <div class="row">
                 <!-- Konfirmasi Password -->
                 <div class="col-md-6 mb-3">
                     <label for="password_confirmation">Konfirmasi Password</label>

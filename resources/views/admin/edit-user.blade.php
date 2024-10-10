@@ -56,33 +56,44 @@
                                 @enderror
                             </div>
                             
-                            <!-- Role -->
+                            <!-- Role (Disabled) -->
                             <div class="form-group">
                                 <label for="role">Role</label>
-                                <select name="role" class="form-control" required>
-                                    <option value="">Pilih Role</option>
-                                    <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
+                                <select class="form-control" disabled>
+                                    <option value="user" selected>User</option>
                                 </select>
+                                <input type="hidden" name="role" value="{{ $user->role }}">
                                 @error('role')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             
-                            <!-- Nama PT -->
+                            <!-- Nama PT (Disabled) -->
                             <div class="form-group">
                                 <label for="nama_pt">Nama PT</label>
-                                <input type="text" name="nama_pt" class="form-control" value="{{ old('nama_pt', $user->nama_pt) }}" required>
+                                <input type="text" class="form-control" value="{{ $user->nama_pt }}" disabled>
+                                <input type="hidden" name="nama_pt" value="{{ $user->nama_pt }}">
                                 @error('nama_pt')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             
-                            <!-- Alamat PT -->
+                            <!-- Alamat PT (Disabled) -->
                             <div class="form-group">
                                 <label for="alamat_pt">Alamat PT</label>
-                                <input type="text" name="alamat_pt" class="form-control" value="{{ old('alamat_pt', $user->alamat_pt) }}" required>
+                                <input type="text" class="form-control" value="{{ $user->alamat_pt }}" disabled>
+                                <input type="hidden" name="alamat_pt" value="{{ $user->alamat_pt }}">
                                 @error('alamat_pt')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <!-- Company Type (Disabled) -->
+                            <div class="form-group">
+                                <label for="company_type">Tipe Perusahaan</label>
+                                <input type="text" class="form-control" value="{{ auth()->user()->company_type }}" disabled>
+                                <input type="hidden" name="company_type" value="{{ auth()->user()->company_type }}">
+                                @error('company_type')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

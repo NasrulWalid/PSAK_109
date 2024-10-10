@@ -82,14 +82,15 @@ class ManajemenControllerAdmin extends Controller
     public function EditUserAdmin(Request $request, $id): RedirectResponse
     {
         // Validasi form
+        // dump('Data yang dikirim:', $request->all());
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'nomor_wa' => ['required', 'string', 'regex:/^[0-9\+]{10,15}$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
             'role' => ['required', 'string'],
-            'company_type' => ['required', 'string'], // Validasi untuk company_type
             'nama_pt' => ['required', 'string'],
             'alamat_pt' => ['required', 'string'],
+            'company_type' => ['required', 'string'], // Validasi untuk company_type
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()], // Password optional
         ]);
 
@@ -101,9 +102,10 @@ class ManajemenControllerAdmin extends Controller
                 'nomor_wa' => $request->nomor_wa,
                 'email' => $request->email,
                 'role' => $request->role,
-                'company_type' => $request->company_type, // Tambahkan ini
                 'nama_pt' => $request->nama_pt,
                 'alamat_pt' => $request->alamat_pt,
+                'company_type' => $request->company_type, // Tambahkan ini
+                'password' => Hash::make($request->password),
             ]);
 
             // Jika password diisi, update password
