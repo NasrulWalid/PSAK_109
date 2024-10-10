@@ -11,7 +11,7 @@ class PricingControllerAdmin extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show()
+    public function showadmin()
     {
         return view('pricing.price');
     }

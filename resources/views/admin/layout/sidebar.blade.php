@@ -42,7 +42,7 @@
         </li>
         
         <li class="nav-item active">
-          <a class="nav-link" href="{{ route('pricing.show') }}">
+          <a class="nav-link" href="{{ route('admin.pricing.show') }}">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Pricing</span>
           </a>

@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PricingController;
+use App\Http\Controllers\PricingControllerSuperAdmin;
+use App\Http\Controllers\PricingControllerAdmin;
 use App\Http\Controllers\ManajemenController;
 use App\Http\Controllers\ManajemenControllerAdmin;
 
@@ -33,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Rute untuk halaman pricing
+// Rute untuk halaman pricing user
 require __DIR__.'/auth.php';
 Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.show');
 
@@ -41,7 +43,7 @@ Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.show')
 // Rute untuk manajemen user (Super Admin)
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/usermanajemen', [ManajemenController::class, 'index'])->name('usermanajemen');
-    
+    Route::get('/superadmin/pricing', [PricingControllerSuperAdmin::class, 'showsuperadmin'])->name('superadmin.pricing.show');
     // Rute untuk menambah user superadmin
     Route::get('/add/user', [ManajemenController::class, 'tambahuser'])->name('superadmin.add.user');
     Route::post('/add/user', [ManajemenController::class, 'AddUser'])->name('superadmin.AddUser');
@@ -56,6 +58,8 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
 
 // Rute untuk manajemen user (Admin)
 Route::middleware(['auth', 'admin'])->group(function () {
+// pricing show admin
+    Route::get('/admin/pricing', [PricingControllerAdmin::class, 'showadmin'])->name('admin.pricing.show');
     Route::get('/admin/usermanajemen', [ManajemenControllerAdmin::class, 'index'])->name('admin.usermanajemen');
     
     // Rute untuk menambah user admin
