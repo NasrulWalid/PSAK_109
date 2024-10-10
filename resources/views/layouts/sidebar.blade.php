@@ -56,56 +56,111 @@
             Menu
         </div>
 
-        <!-- Report Dropdown -->
-        <li class="nav-item">
-            <a href="#" class="nav-link d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <i class="nav-icon bi bi-box-seam-fill"></i>
-                    <p class="ms-2 mb-0">Report</p>
-                </div>
-                <i class="nav-arrow bi bi-chevron-right"></i>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="./widgets/small-box.html" class="nav-link d-flex align-items-center">
-                        <i class="nav-icon bi bi-circle"></i>
-                        <p class="ms-2 mb-0">Report Amortised Cost</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./widgets/info-box.html" class="nav-link d-flex align-items-center">
-                        <i class="nav-icon bi bi-circle"></i>
-                        <p class="ms-2 mb-0">Report Amortised Initial Cost</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
-                        <i class="nav-icon bi bi-circle"></i>
-                        <p class="ms-2 mb-0">Report Amortised Initial Fee</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
-                        <i class="nav-icon bi bi-circle"></i>
-                        <p class="ms-2 mb-0">Report Expective Cash Flow</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
-                        <i class="nav-icon bi bi-circle"></i>
-                        <p class="ms-2 mb-0">Report Interest Deferred</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
-                        <i class="nav-icon bi bi-circle"></i>
-                        <p class="ms-2 mb-0">Report Journal</p>
-                    </a>
-                </li>
-        
+       <!-- Report Dropdown -->
+       <li class="nav-item">
+        <a href="#" class="nav-link d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <i class="nav-icon bi bi-box-seam-fill"></i>
+                <p class="ms-2 mb-0">Report</p>
+            </div>
+            <i class="nav-arrow bi bi-chevron-right"></i>
+        </a>
+        <ul class="nav nav-treeview">
+            <!-- Simple Interest Submenu -->
+            <li class="ms-2 nav-item">
+                <a href="#" class="nav-link d-flex align-items-center">
+                    <i class="bi bi-percent"></i> <!-- Icon untuk Simple Interest -->
+                    <p class="ms-2 mb-0">Simple Interest</p>
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="./widgets/small-box.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Amortised Cost</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/info-box.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Amortised Initial Cost</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Amortised Interest Fee</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Expective Cash Flow</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Interest Deffered</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Journal</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Effective Submenu -->
+            <li class="ms-2 nav-item">
+                <a href="#" class="nav-link d-flex align-items-center">
+                    <i class="bi bi-graph-up-arrow"></i> <!-- Icon untuk Effective -->
+                    <p class="mb-0">Effective</p>
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="./widgets/small-box.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Amortised Cost</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/info-box.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Amortised Initial Cost</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Amortised Interest Fee</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Expective Cash Flow</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Interest Deffered</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                            <i class="nav-icon bi bi-circle"></i>
+                            <p class="ms-2 mb-0">Report Journal</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
-        </li>
-        
+    </li>
+
                 <!-- Upload Data Files Dropdown -->
         <li class="nav-item">
             <a href="#" class="nav-link d-flex justify-content-between align-items-center">
