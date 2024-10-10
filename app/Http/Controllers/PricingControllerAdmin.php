@@ -13,7 +13,7 @@ class PricingControllerAdmin extends Controller
      */
     public function showadmin()
     {
-        return view('pricing.price');
+        return view('admin.pricing.price');
     }
     
 }
