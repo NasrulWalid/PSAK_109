@@ -7,6 +7,7 @@ use App\Http\Controllers\PricingControllerSuperAdmin;
 use App\Http\Controllers\PricingControllerAdmin;
 use App\Http\Controllers\ManajemenController;
 use App\Http\Controllers\ManajemenControllerAdmin;
+use App\Http\Controllers\ReportEffectiveController;
 
 // Rute untuk halaman utama
 Route::get('/', function () {
@@ -35,8 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Rute untuk halaman pricing user
+// auth laravel breeze
 require __DIR__.'/auth.php';
+
+// Rute untuk halaman pricing user
 Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.show');
 
 
@@ -58,6 +61,11 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
 
 // Rute untuk manajemen user (Admin)
 Route::middleware(['auth', 'admin'])->group(function () {
+
+    // Report Effective
+    Route::get('/admin/amortisedcost', [ReportEffectiveController::class, 'showreportamortisedcost'])->name('admin.amortise.cost');
+
+
 // pricing show admin
     Route::get('/admin/pricing', [PricingControllerAdmin::class, 'showadmin'])->name('admin.pricing.show');
     Route::get('/admin/usermanajemen', [ManajemenControllerAdmin::class, 'index'])->name('admin.usermanajemen');

@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index3.html" class="brand-link" style="text-decoration: none">
         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
     </a>
 
@@ -117,37 +117,37 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./widgets/small-box.html" class="nav-link d-flex align-items-center">
+                                    <a href="{{ route('admin.amortise.cost') }}" class="nav-link d-flex align-items-center">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p class="ms-2 mb-0">Report Amortised Cost</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./widgets/info-box.html" class="nav-link d-flex align-items-center">
+                                    {{-- <a href="{{ route('admin.amortise.initial.cost') }}" class="nav-link d-flex align-items-center"> --}}
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p class="ms-2 mb-0">Report Amortised Initial Cost</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                                    {{-- <a href="{{ route('admin.amortise.interest.fee') }}" class="nav-link d-flex align-items-center"> --}}
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p class="ms-2 mb-0">Report Amortised Interest Fee</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                                    {{-- <a href="{{ route('admin.expective.cash.flow') }}" class="nav-link d-flex align-items-center"> --}}
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p class="ms-2 mb-0">Report Expective Cash Flow</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                                    {{-- <a href="{{ route('admin.interest.deffered') }}" class="nav-link d-flex align-items-center"> --}}
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p class="ms-2 mb-0">Report Interest Deffered</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./widgets/cards.html" class="nav-link d-flex align-items-center">
+                                    {{-- <a href="{{ route('admin.report.journal') }}" class="nav-link d-flex align-items-center"> --}}
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p class="ms-2 mb-0">Report Journal</p>
                                     </a>
@@ -290,7 +290,7 @@
                     </a>
                 </li>
 
-            </ul>
+            </ul><br><br><br>
         </nav>
     </div>
     <!-- /.sidebar -->

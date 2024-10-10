@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id(); // Primary key
             $table->unsignedBigInteger('user_id'); // Foreign key untuk user
             $table->unsignedBigInteger('modul_id'); // Foreign key untuk modul
-            $table->boolean('effective')->default(false); // Kolom untuk effective
-            $table->boolean('simple_interest')->default(false); // Kolom untuk simple interest
             $table->string('periode')->nullable(); // Kolom untuk periode (misal: yearly, monthly)
             $table->timestamps(); // Kolom created_at dan updated_at
 
