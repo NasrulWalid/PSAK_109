@@ -25,7 +25,7 @@
                 <i class="fas fa-cog"></i>
             </a>
         </div>
-        
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -36,7 +36,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('admin.pricing.show') }}">
                         <i class="bi bi-cash"></i> <!-- Icon untuk Pricing -->
@@ -71,7 +71,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./widgets/small-box.html" class="nav-link d-flex align-items-center">
+                                    <a href="{{ route('report.index') }}" class="nav-link d-flex align-items-center">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p class="ms-2 mb-0">Report Amortised Cost</p>
                                     </a>
@@ -271,7 +271,7 @@
 
                 <!-- Administrator Options -->
                 <div class="sidebar-heading">
-                    Options 
+                    Options
                 </div>
 
                 <!-- User Management -->
@@ -294,23 +294,24 @@
         </nav>
     </div>
     <!-- /.sidebar -->
+    <style>
+        .online-status {
+            width: 10px;
+            height: 10px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .gear-icon {
+            color: #b8c7ce;
+            font-size: 1.2rem;
+        }
+
+        .gear-icon:hover {
+            color: #ffffff; /* Change color on hover */
+        }
+    </style>
+
 </aside>
 
-<style>
-    .online-status {
-        width: 10px;
-        height: 10px;
-        background-color: green;
-        border-radius: 50%;
-        display: inline-block;
-    }
-
-    .gear-icon {
-        color: #b8c7ce;
-        font-size: 1.2rem;
-    }
-
-    .gear-icon:hover {
-        color: #ffffff; /* Change color on hover */
-    }
-</style>

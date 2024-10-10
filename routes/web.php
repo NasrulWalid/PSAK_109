@@ -8,6 +8,8 @@ use App\Http\Controllers\PricingControllerAdmin;
 use App\Http\Controllers\ManajemenController;
 use App\Http\Controllers\ManajemenControllerAdmin;
 use App\Http\Controllers\ReportEffectiveController;
+use App\Http\Controllers\report\Report_Accrual_Interest\ReportController;
+
 
 // Rute untuk halaman utama
 Route::get('/', function () {
@@ -69,7 +71,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 // pricing show admin
     Route::get('/admin/pricing', [PricingControllerAdmin::class, 'showadmin'])->name('admin.pricing.show');
     Route::get('/admin/usermanajemen', [ManajemenControllerAdmin::class, 'index'])->name('admin.usermanajemen');
-    
+
     // Rute untuk menambah user admin
     Route::get('/admin/add/user', [ManajemenControllerAdmin::class, 'tambahuseradmin'])->name('admin.add.user');
     Route::post('/admin/add/user', [ManajemenControllerAdmin::class, 'AddUserAdmin'])->name('AddUserAdmin');
@@ -80,4 +82,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Rute untuk delete user admin
     Route::get('/admin/delete/user/{id}', [ManajemenControllerAdmin::class, 'deleteadmin'])->name('admin.delete.user');
+
+    //route report
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/report/view/{no_acc}', [ReportController::class, 'view'])->name('report.view');
+    Route::get('report/export-pdf/{no_acc}', [Reportcontroller::class, 'exportPdf'])->name('report.exportPdf');
+    Route::get('report/export-excel/{no_acc}', [Reportcontroller::class, 'exportExcel'])->name('report.exportExcel');
+
+
 });

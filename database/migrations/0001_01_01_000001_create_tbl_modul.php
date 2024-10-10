@@ -16,8 +16,8 @@ class CreateTblModul extends Migration // Pastikan nama kelas ini unik
         Schema::create('tbl_modul', function (Blueprint $table) {
             $table->bigIncrements('modul_id'); // Primary key with auto-increment
             $table->string('nama_modul', 255); // Column for the module name with max length
-            $table->varchar('effective')->default(false); // Kolom untuk effective
-            $table->varchar('simple_interest')->default(false); // Kolom untuk simple interest
+            $table->string('effective')->default(false); // Kolom untuk effective
+            $table->string('simple_interest')->default(false); // Kolom untuk simple interest
             $table->timestamps(); // Adds created_at and updated_at columns
         });
     }
