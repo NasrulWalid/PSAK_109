@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="main-content" style="margin-left: 250px; padding-top: 20px;"> <!-- Adjust margin and padding -->
     <div class="container mt-5">
         <section class="section">
             <div class="section-header">
@@ -38,3 +38,20 @@
         </section>
     </div>
 </div>
+
+<!-- Custom CSS to handle the sidebar and padding -->
+<style>
+    body {
+        display: flex;
+    }
+    .sidebar {
+        width: 250px; /* Set sidebar width */
+        position: fixed;
+        height: 100%;
+    }
+    .main-content {
+        margin-left: 250px; /* Matches the sidebar width */
+        width: calc(100% - 250px); /* Adjust width according to sidebar */
+        padding-top: 20px; /* Adds spacing at the top */
+    }
+</style>
