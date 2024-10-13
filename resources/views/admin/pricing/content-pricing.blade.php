@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             flex-direction: column;
         }
@@ -19,14 +19,8 @@
             flex-grow: 1;
         }
 
-        .sidebar {
-            flex: 0 0 250px;
-            background-color: #343a40;
-            padding: 10px;
-            color: white;
-        }
-
         .content {
+            margin-left: 270px; /* Berikan margin agar konten tidak tertutup sidebar */
             flex-grow: 1;
             padding: 20px;
             overflow-x: auto;
@@ -56,7 +50,7 @@
         }
 
         table {
-            width: 100%;
+            width: 100%; /* Lebar tabel 100% */
             border-collapse: collapse;
             margin-top: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -86,9 +80,6 @@
             cursor: pointer;
         }
 
-        .hidden {
-            display: none;
-        }
 
         .save-button {
             display: block;

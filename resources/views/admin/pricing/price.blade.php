@@ -4,6 +4,6 @@
 
 @include('admin.layout.sidebar')
 
-@include('pricing.content-pricing')
+@include('admin.pricing.content-pricing')
 
 @include('layouts.footer')
