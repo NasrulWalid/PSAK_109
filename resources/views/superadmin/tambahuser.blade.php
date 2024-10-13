@@ -9,9 +9,6 @@
 <body>
 
     <div class="container mt-5 p-4 border rounded shadow">
-        <a href="{{ route('usermanajemen') }}" class="btn btn-secondary">
-            {{ __('Kembali ke User Manajemen') }}
-        </a>
         <h2 class="mb-4 text-center">Form Tambah Pengguna</h2>
         <form method="POST" action="{{ route('superadmin.AddUser') }}">
             @csrf
@@ -98,7 +95,10 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-end mt-4">
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ route('usermanajemen') }}" class="btn btn-secondary">
+                    {{ __('Kembali') }}
+                </a>
                 <button type="submit" class="btn btn-primary">
                     {{ __('Simpan') }}
                 </button>

@@ -7,41 +7,92 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        /* Menambahkan margin-top agar tidak mepet dengan navbar */
+        .container {
+            margin-top: 120px; /* Adjust sesuai kebutuhan */
+            margin-left: 300px; /* Tambahkan jarak dari sidebar di sebelah kiri */
+            max-width: 1300px; /* Lebar container diperbesar */
+        }
+
+        /* Lebar card yang lebih besar agar tabel tidak terpotong */
+        .card {
+            min-width: 1250px; /* Lebar card sedikit diperbesar */
+        }
+
+        /* Mengatur kolom agar lebih kompak */
+        table th, table td {
+            font-size: 0.85rem; /* Ukuran font lebih kecil */
+            padding: 8px; /* Mengurangi padding */
+            text-align: center; /* Semua teks dalam kolom rata tengah */
+        }
+
+        /* Kolom tertentu yang lebih besar */
+        table th:nth-child(2), table td:nth-child(2), /* Nama Lengkap */
+        table th:nth-child(5), table td:nth-child(5), /* Company Type */
+        table th:nth-child(7), table td:nth-child(7)  /* Email */ {
+            width: 200px;
+        }
+
+        /* Lebar kolom yang lebih kecil */
+        table th, table td {
+            width: 80px; /* Lebar kolom default lebih kecil */
+        }
+
+        /* Tambahan margin dan padding agar tombol tidak terlalu mepet */
+        .btn {
+            margin: 1px;
+            font-size: 0.8rem; /* Ukuran tombol lebih kecil */
+            padding: 5px 10px; /* Mengurangi ukuran tombol */
+        }
+
+        /* Kontrol overflow teks pada kolom */
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Menggunakan elipsis (...) untuk memotong teks */
+        }
+    </style>
 </head>
 <body>
-    
-    <div class="container mt-5">
+
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Manajemen Pengguna</h3>
-                        <a href="{{ route('admin.add.user') }}" class="btn btn-primary float-right">
+                        <a href="{{ route('load.admin.add.user') }}" class="btn btn-primary ml-auto">
                             <i class="fas fa-plus"></i> Tambah User
                         </a>
                     </div>
-                    
+
                     <div class="card-body">
+                        <!-- Success message -->
                         @if (Session::has('success'))
                             <div class="alert alert-success">
                                 {{ Session::get('success') }}
                             </div>
                         @endif
                         
+                        <!-- Fail message -->
                         @if (Session::has('fail'))
                             <div class="alert alert-danger">
                                 {{ Session::get('fail') }}
                             </div>
                         @endif
-                        
+
+                        <!-- Tabel pengguna -->
                         <table class="table table-bordered table-striped">
-                            <thead>
+                            <thead class="thead-light">
                                 <tr>
                                     <th>S/N</th>
                                     <th>Nama Lengkap</th>
                                     <th>Nama PT</th>
                                     <th>Alamat PT</th>
-                                    <th>Company Type</th> <!-- Kolom baru untuk company_type -->
+                                    <th>Company Type</th>
                                     <th>Nomor WhatsApp</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -52,7 +103,7 @@
                             </thead>
                             <tbody>
                                 @if (auth()->check() && auth()->user()->role == 'admin')
-                                    <!-- Menampilkan data admin yang sedang login hanya sekali -->
+                                    <!-- Admin row -->
                                     <tr>
                                         <td>1</td>
                                         <td>{{ auth()->user()->name }}</td>
@@ -65,38 +116,38 @@
                                         <td>{{ auth()->user()->created_at->format('d M Y') }}</td>
                                         <td>{{ auth()->user()->updated_at->format('d M Y') }}</td>
                                         <td>
-                                            <a href="{{ route('admin.edit.user', ['id' => auth()->user()->id]) }}" class="btn btn-primary btn-sm">
+                                            <a href="{{ route('admin.edit.user', ['user_id' => auth()->user()->user_id]) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-pencil-alt"></i> Edit
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.delete.user', ['id' => auth()->user()->id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                                            <a href="{{ route('admin.delete.user', ['user_id' => auth()->user()->user_id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
                                                 <i class="fas fa-trash"></i> Delete
                                             </a>
                                         </td>
                                     </tr>
 
-                                    <!-- Menampilkan data user lain, kecuali yang role-nya superadmin atau admin yang login -->
-                                    @foreach ($all_users->where('id', '!=', auth()->user()->id) as $index => $user)
-                                        @if ($user->role != 'superadmin') <!-- Sembunyikan superadmin -->
+                                    <!-- Other users -->
+                                    @foreach ($all_users->where('user_id', '!=', auth()->user()->user_id) as $index => $user)
+                                        @if ($user->role != 'superadmin')
                                             <tr>
-                                                <td>{{ $index + 2 }}</td> <!-- Mulai dari 2 karena admin ditampilkan pertama -->
+                                                <td>{{ $index + 2 }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->nama_pt ?? 'N/A' }}</td>
                                                 <td>{{ $user->alamat_pt ?? 'N/A' }}</td>
-                                                <td>{{ $user->company_type ?? 'N/A' }}</td> <!-- Menampilkan company_type user -->
+                                                <td>{{ $user->company_type ?? 'N/A' }}</td>
                                                 <td>{{ $user->nomor_wa }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ ucfirst($user->role) }}</td>
                                                 <td>{{ $user->created_at->format('d M Y') }}</td>
                                                 <td>{{ $user->updated_at->format('d M Y') }}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.edit.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm">
+                                                    <a href="{{ route('admin.edit.user', ['user_id' => $user->user_id]) }}" class="btn btn-primary btn-sm">
                                                         <i class="fas fa-pencil-alt"></i> Edit
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.delete.user', ['id' => $user->id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                                                    <a href="{{ route('admin.delete.user', ['user_id' => $user->user_id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
                                                         <i class="fas fa-trash"></i> Delete
                                                     </a>
                                                 </td>
@@ -104,30 +155,26 @@
                                         @endif
                                     @endforeach
 
-                                    @if ($all_users->where('id', '!=', auth()->user()->id)->where('role', '!=', 'superadmin')->isEmpty())
+                                    <!-- No users found -->
+                                    @if ($all_users->where('user_id', '!=', auth()->user()->user_id)->where('role', '!=', 'superadmin')->isEmpty())
                                         <tr>
-                                            <td colspan="11" class="text-center">No User Found!</td>
+                                            <td colspan="12" class="text-center">No User Found!</td>
                                         </tr>
                                     @endif
                                 @else
                                     <tr>
-                                        <td colspan="11" class="text-center">Access Denied! Only Admin can view this page.</td>
+                                        <td colspan="12" class="text-center">Access Denied! Only Admin can view this page.</td>
                                     </tr>
                                 @endif
                             </tbody>
                         </table>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <!-- Bootstrap JS -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

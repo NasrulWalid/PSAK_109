@@ -11,7 +11,6 @@ use Illuminate\Validation\Rules;
 
 class ManajemenControllerAdmin extends Controller
 {
-    // Menampilkan daftar pengguna yang memiliki nama_pt yang sama dengan admin
     public function index()
     {
         $admin = auth()->user();
@@ -19,84 +18,69 @@ class ManajemenControllerAdmin extends Controller
         return view('admin.usermanajemen', compact('all_users'));
     }
 
-    // Menampilkan halaman tambah user
-    public function tambahuseradmin()
+    public function loadadduseradmin()
     {
         return view('admin.tambahuser');
     }
 
-    // Fungsi untuk menambahkan user baru
     public function AddUserAdmin(Request $request): RedirectResponse
     {
-    //     // Dump semua data yang dikirim dari form
-    // dump('Data yang dikirim:', $request->all());
         // Validasi form
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'nomor_wa' => ['required', 'string', 'regex:/^[0-9\+]{10,15}$/'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'nama_pt' => ['required', 'string'],
+            'alamat_pt' => ['required', 'string'],
+            'company_type' => ['required', 'string'],
             'role' => ['required', 'string'], 
-            'company_type' => ['required', 'string'], // Validasi untuk company_type
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:tbl_users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'nama_pt' => ['required', 'string'], // Validasi untuk nama_pt
-            'alamat_pt' => ['required', 'string'], // Validasi untuk alamat_pt
         ]);
 
-    // // Dump setelah validasi berhasil
-    // dump('Validasi berhasil.');
         try {
-        //     // Dump sebelum menyimpan user
-        // dump('Sebelum menyimpan user.');
-            // Buat user baru dengan nama_pt dan alamat_pt dari admin yang sedang login
+            // Buat user baru
             $user = User::create([
                 'name' => $request->name,
                 'nomor_wa' => $request->nomor_wa,
-                'email' => $request->email,
+                'nama_pt' => auth()->user()->nama_pt,
+                'alamat_pt' => auth()->user()->alamat_pt,
+                'company_type' => $request->company_type,
                 'role' => $request->role,
-                'company_type' => $request->company_type, // Tambahkan ini
-                'nama_pt' => auth()->user()->nama_pt, // Ambil dari admin yang sedang login
-                'alamat_pt' => auth()->user()->alamat_pt, // Ambil dari admin yang sedang login
+                'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
 
-            // Trigger event Registered jika perlu
             event(new Registered($user));
 
-            // Redirect ke halaman user manajemen dengan pesan sukses
             return redirect()->route('admin.usermanajemen')->with('status', 'User berhasil ditambahkan.');
         } catch (\Exception $e) {
-            // dd('Error saat menyimpan user: ' . $e->getMessage());
-            return redirect()->route('admin.add.user')->with('fail', 'Gagal menambahkan user: ' . $e->getMessage());
+            return redirect()->route('load.admin.add.user')->with('fail', 'Gagal menambahkan user: ' . $e->getMessage());
         }
     }
 
-    // Menampilkan halaman edit user
-    public function loadeditadmin($id)
+    public function loadeditadmin($user_id)
     {
         $admin = auth()->user();
-        $user = User::where('id', $id)->where('nama_pt', $admin->nama_pt)->firstOrFail();
+        $user = User::where('user_id', $user_id)->where('nama_pt', $admin->nama_pt)->firstOrFail();
         return view('admin.edit-user', compact('user'));
     }
 
-    // Fungsi untuk mengedit user
-    public function EditUserAdmin(Request $request, $id): RedirectResponse
+    public function EditUserAdmin(Request $request, $user_id): RedirectResponse
     {
-        // Validasi form
-        // dump('Data yang dikirim:', $request->all());
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'nomor_wa' => ['required', 'string', 'regex:/^[0-9\+]{10,15}$/'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:tbl_users,email,' . $user_id . ',user_id'],
             'role' => ['required', 'string'],
             'nama_pt' => ['required', 'string'],
             'alamat_pt' => ['required', 'string'],
-            'company_type' => ['required', 'string'], // Validasi untuk company_type
-            'password' => ['nullable', 'confirmed', Rules\Password::defaults()], // Password optional
+            'company_type' => ['required', 'string'],
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
         ]);
 
         try {
             $admin = auth()->user();
-            $user = User::where('id', $id)->where('nama_pt', $admin->nama_pt)->firstOrFail();
+            $user = User::where('user_id', $user_id)->where('nama_pt', $admin->nama_pt)->firstOrFail();
             $user->update([
                 'name' => $request->name,
                 'nomor_wa' => $request->nomor_wa,
@@ -104,8 +88,7 @@ class ManajemenControllerAdmin extends Controller
                 'role' => $request->role,
                 'nama_pt' => $request->nama_pt,
                 'alamat_pt' => $request->alamat_pt,
-                'company_type' => $request->company_type, // Tambahkan ini
-                'password' => Hash::make($request->password),
+                'company_type' => $request->company_type,
             ]);
 
             // Jika password diisi, update password
@@ -120,16 +103,16 @@ class ManajemenControllerAdmin extends Controller
         }
     }
 
-    // Fungsi untuk menghapus user
-    public function deleteadmin($id)
+    public function deleteadmin($user_id)
     {
         try {
             $admin = auth()->user();
-            $user = User::where('id', $id)->where('nama_pt', $admin->nama_pt)->firstOrFail();
+            $user = User::where('user_id', $user_id)->where('nama_pt', $admin->nama_pt)->firstOrFail();
             $user->delete();
-            return redirect()->route('admin.usermanajemen')->with('success', 'User Deleted Successfully');
+
+            return redirect()->route('admin.usermanajemen')->with('success', 'User berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->route('admin.usermanajemen')->with('fail', $e->getMessage());
+            return redirect()->route('admin.usermanajemen')->with('fail', 'Gagal menghapus user: ' . $e->getMessage());
         }
     }
 }

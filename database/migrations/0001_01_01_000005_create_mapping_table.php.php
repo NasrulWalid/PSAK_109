@@ -33,6 +33,8 @@ return new class extends Migration
             // Menghapus foreign key sebelum menghapus tabel
             $table->dropForeign(['user_id']);
             $table->dropForeign(['modul_id']);
+            $table->string('effective')->default(false); // Kolom untuk effective
+            $table->string('simple_interest')->default(false); // Kolom untuk simple interest
         });
 
         Schema::dropIfExists('tbl_mapping');

@@ -26,7 +26,9 @@
                             </div>
                         @endif
                         
-                        <form method="POST" action="{{ route('admin.update.user', ['id' => $user->id]) }}">
+                        <!-- Perbaikan pengiriman parameter user_id -->
+                        <form method="POST" action="{{ route('admin.update.user', ['user_id' => $user->user_id]) }}">
+
                             @csrf
                             
                             <!-- Nama Lengkap -->
@@ -100,8 +102,8 @@
                             
                             <!-- Password -->
                             <div class="form-group">
-                                <label for="password">Password (Biarkan kosong jika tidak ingin mengubah)</label>
-                                <input type="password" name="password" class="form-control" autocomplete="new-password" placeholder="Masukkan Password Baru (Jika ingin mengubah)">
+                                <label for="password">Password (Kosongkan jika tidak ingin mengubah)</label>
+                                <input type="password" name="password" class="form-control">
                                 @error('password')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -110,25 +112,19 @@
                             <!-- Konfirmasi Password -->
                             <div class="form-group">
                                 <label for="password_confirmation">Konfirmasi Password</label>
-                                <input type="password" name="password_confirmation" class="form-control" autocomplete="new-password" placeholder="Masukkan Ulang Password Baru (Jika ingin mengubah)">
-                                @error('password_confirmation')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                <input type="password" name="password_confirmation" class="form-control">
                             </div>
                             
-                            <button type="submit" class="btn btn-success">Update User</button>
+                            <button type="submit" class="btn btn-primary">Update User</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <!-- Bootstrap JS -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

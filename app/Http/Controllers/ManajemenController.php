@@ -3,119 +3,107 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB; // Import DB facade
 
 class ManajemenController extends Controller
 {
-    // Menampilkan daftar pengguna
     public function index()
     {
-        $all_users = User::all(); // Ambil semua pengguna tanpa relasi ke PT
+        $all_users = User::all(); // Ambil semua pengguna dari basis data
         return view('superadmin.usermanajemen', compact('all_users'));
     }
-
-    // Menampilkan halaman tambah user
+    
     public function tambahuser()
     {
         return view('superadmin.tambahuser');
     }
 
-    // Fungsi untuk menambahkan user baru
-    public function AddUser(Request $request): RedirectResponse
+    public function AddUser(Request $request)
     {
-        // dump('Data yang dikirim:', $request->all());
-        // Validasi form
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'nama_pt' => ['required', 'string', 'max:255'], // Validasi untuk nama_pt
-            'alamat_pt' => ['required', 'string', 'max:255'], // Validasi untuk alamat_pt
-            'nomor_wa' => ['required', 'string', 'regex:/^[0-9\+]{10,15}$/'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'role' => ['required', 'string'], // Menggunakan 'sometimes' agar validasi tidak gagal jika role tidak dikirim
-            'company_type' => ['required', 'string'], // Validasi untuk company_type
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        // Logika untuk menyimpan user ke dalam database
-        try {
-            // Buat pengguna baru
-            $user = User::create([
-                'name' => $request->name,
-                'nama_pt' => $request->nama_pt, // Tambahkan nama_pt
-                'alamat_pt' => $request->alamat_pt, // Tambahkan alamat_pt
-                'nomor_wa' => $request->nomor_wa,
-                'email' => $request->email,
-                'role' => $request->role, // Gunakan nilai role yang dikirim dari form
-                'company_type' => $request->company_type, // Tambahkan company_type
-                'password' => Hash::make($request->password),
-            ]);
-
-            // Fire Registered event
-            event(new Registered($user));
-
-            // Redirect to user management page with success message
-            return redirect('/usermanajemen')->with('status', 'User berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            return redirect('/tambahuser')->with('fail', $e->getMessage());
-        }
-    }
-
-    public function EditUser(Request $request)
-    {
-        // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
-            'nomor_wa' => 'required|string|regex:/^[0-9\+]{10,15}$/',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $request->user_id, // Update email, kecuali yang sama
-            'role' => 'required|string',
-            'company_type' => 'required|string', // Validasi untuk company_type
-            'nama_pt' => 'required|string|max:255', // Validasi untuk nama_pt
-            'alamat_pt' => 'required|string|max:255', // Validasi untuk alamat_pt
-            'password' => ['nullable', 'confirmed', Rules\Password::defaults()], // Gunakan array
+            'nama_pt' => 'required|string|max:255',
+            'company_type' => 'required|string|max:255',
+            'alamat_pt' => 'required|string|max:255',
+            'nomor_wa' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:tbl_users,email',
+            'role' => 'required|string|max:255',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         try {
-            // Ambil user terkait
-            $user = User::findOrFail($request->user_id);
-
-            // Update user data, hanya update password jika diisi
-            $user->update([
+            User::create([
                 'name' => $request->name,
+                'nama_pt' => $request->nama_pt,
+                'company_type' => $request->company_type,
+                'alamat_pt' => $request->alamat_pt,
                 'nomor_wa' => $request->nomor_wa,
                 'email' => $request->email,
                 'role' => $request->role,
-                'company_type' => $request->company_type, // Update company_type
-                'nama_pt' => $request->nama_pt, // Update nama_pt
-                'alamat_pt' => $request->alamat_pt, // Update alamat_pt
-                'password' => $request->password ? Hash::make($request->password) : $user->password,
+                'password' => Hash::make($request->password),
             ]);
 
-            // Redirect ke halaman user manajemen dengan pesan sukses
-            return redirect('/usermanajemen')->with('success', 'User berhasil diupdate.');
+            return redirect()->route('usermanajemen')->with('success', 'User berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal menambahkan user: ' . $e->getMessage());
         }
     }
 
-    public function loadedit($id)
+    public function loadedit($user_id)
     {
-        // Ambil user berdasarkan ID tanpa relasi
-        $user = User::findOrFail($id);
-
+        $user = User::findOrFail($user_id);
         return view('superadmin.edit-user', compact('user'));
     }
 
-    public function delete($id)
+    public function EditUser(Request $request, $user_id)
     {
+        // dd($request->all());
+        $request->validate([
+            
+            'name' => 'required|string|max:255',
+            'nama_pt' => 'required|string|max:255',
+            'company_type' => 'required|string|max:255',
+            'alamat_pt' => 'required|string|max:255',
+            'nomor_wa' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('tbl_users')->ignore($user_id, 'user_id'),
+            ],
+            'role' => 'required|string|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
         try {
-            User::where('id', $id)->delete();
-            return redirect('/usermanajemen')->with('success', 'User Deleted Success');
+            $user = User::findOrFail($user_id);
+            $user->name = $request->name;
+            $user->nama_pt = $request->nama_pt;
+            $user->company_type = $request->company_type;
+            $user->alamat_pt = $request->alamat_pt;
+            $user->nomor_wa = $request->nomor_wa;
+            $user->email = $request->email;
+            $user->role = $request->role;
+
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+            }
+
+            $user->save();
+
+            return redirect()->route('usermanajemen')->with('success', 'User berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect('/usermanajemen')->with('fail', $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal memperbarui user: ' . $e->getMessage());
         }
+    }
+
+    public function delete($user_id)
+    {
+        User::where('user_id', $user_id)->delete(); // Menggunakan user_id
+        return redirect()->route('usermanajemen')->with('success', 'User berhasil dihapus.');
     }
 }
