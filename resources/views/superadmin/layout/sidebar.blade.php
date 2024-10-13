@@ -16,7 +16,7 @@
             </div>
             <div class="info ms-2" style="max-width: 150px; white-space: normal;">
                 <span class="d-block" style="font-size: 1.3rem; color: rgb(255, 255, 255); word-wrap: break-word;">{{ Auth::user()->name }}</span> <!-- User Type Info -->
-                <span class="text-muted" style="color: rgb(255, 255, 255);">
+                <span class="" style="color: rgb(255, 255, 255);">
                     {{ Auth::user()->role }}
                     <span class="online-status ms-2"></span> <!-- Green dot for online status -->
                 </span>
@@ -224,4 +224,8 @@
     .gear-icon:hover {
         color: #ffffff; /* Change color on hover */
     }
+
+    .sidebar-heading {
+            color: #ffffff; /* Change color on hover */
+        }
   </style>
