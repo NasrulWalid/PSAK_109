@@ -2,7 +2,7 @@
 
 @include('layouts.navbar')
 
-@include('superadmin.layout.sidebar')
+@include('layouts.sidebar')
 
 @include('superadmin.layout.contentusermanajemen')
 
