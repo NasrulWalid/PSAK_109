@@ -3,7 +3,7 @@
 
 @include('layouts.navbar')
 
-@include('admin.layout.sidebar')
+@include('layouts.sidebar')
 
 @include('admin.report_simple_interest.report_view')
 
