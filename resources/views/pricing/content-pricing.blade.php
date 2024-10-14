@@ -112,6 +112,14 @@
                     <option value="Perusahaan Asuransi">Perusahaan Asuransi</option>
                 </select>
             </div>
+            <div class="bisnis-type">
+                <label for="bisnis_type">Bussiness Type:</label>
+                <select id="bisnis_type" name="bisnis_type" onchange="showModules()">
+                    <option value="retailbanking">Retail Banking</option>
+                    <option value="smebanking">SME Banking</option>
+                    <option value="corporatebanking">Corporate Banking</option>
+                </select>
+            </div>
 
             <div id="modules-Bank">
                 <table>

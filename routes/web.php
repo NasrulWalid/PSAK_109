@@ -49,7 +49,6 @@ Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.show')
 // Rute untuk manajemen user (Super Admin)
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/usermanajemen', [ManajemenController::class, 'index'])->name('usermanajemen');
-    Route::get('/superadmin/pricing', [PricingControllerSuperAdmin::class, 'showsuperadmin'])->name('superadmin.pricing.show');
     Route::get('/add/user', [ManajemenController::class, 'tambahuser'])->name('superadmin.add.user');
     Route::post('/add/user', [ManajemenController::class, 'AddUser'])->name('superadmin.AddUser');
 

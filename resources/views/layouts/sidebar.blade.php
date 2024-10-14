@@ -274,6 +274,15 @@
     </a>
 </li>
 @endif
+<!-- Tampilkan menu User Management hanya jika pengguna adalah superadmin -->
+@if (Auth::user()->role === 'superadmin')
+<li class="nav-item">
+    <a href="{{ route('usermanajemen') }}" class="nav-link d-flex align-items-center">
+        <i class="bi bi-people-fill"></i>
+        <p class="ms-2 mb-0">User Management</p>
+    </a>
+</li>
+@endif
                 <!-- Activity Log -->
                 <li class="nav-item">
                     <a class="nav-link" href="">
