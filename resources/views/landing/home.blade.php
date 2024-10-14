@@ -13,7 +13,7 @@
                             <h1 class="display-1 text-white mb-4">Memahami Keuangan dengan Standar Terpercaya</h1>
                             <p class="mb-5 fs-5">Di dunia yang terus berubah, pengelolaan keuangan yang tepat dan transparan adalah kunci keberhasilan. PSak hadir sebagai panduan utama bagi para profesional dan praktisi akuntansi di Indonesia, membantu Anda menavigasi kompleksitas laporan keuangan sesuai dengan standar yang berlaku.</p>
                             <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> Lihat Selengkapnya</a>
+                                <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="{{ route('under') }}"><i class="fas fa-play-circle me-2"></i> Lihat Selengkapnya</a>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <h4 class="mb-4">Terpercaya</h4>
                         <p class="mb-4">Standar yang diakui secara nasional dan dirancang untuk memastikan konsistensi dan kejelasan dalam pelaporan keuangan.<br><br><br>
                         </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Lihat Selengkapnya</a>
+                        <a class="btn btn-primary rounded-pill py-2 px-4" href="{{ route('under') }}">Lihat Selengkapnya</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
@@ -56,7 +56,7 @@
                         <p class="mb-4">PSAK memberikan panduan yang jelas dan rinci, sehingga setiap laporan keuangan yang dihasilkan dapat dipercaya dan dipahami oleh semua pihak yang berkepentingan.
 
                         </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Lihat Selengkapnya</a>
+                        <a class="btn btn-primary rounded-pill py-2 px-4" href="{{ route('under') }}">Lihat Selengkapnya</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
@@ -67,7 +67,7 @@
                         <h4 class="mb-4">Mudah Diakses </h4>
                         <p class="mb-4">Semua dokumen dan sumber daya PSak tersedia dalam satu platform yang mudah diakses kapan saja dan di mana saja, mendukung kebutuhan profesional Anda secara real-time.
                         </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Lihat Selengkapnya</a>
+                        <a class="btn btn-primary rounded-pill py-2 px-4" href="{{ route('under') }}">Lihat Selengkapnya</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
@@ -78,7 +78,7 @@
                         <h4 class="mb-4">Pembaruan Berkala</h4>
                         <p class="mb-4">PSAK selalu diperbarui dengan perkembangan terbaru dalam dunia akuntansi dan regulasi keuangan, memastikan Anda selalu selangkah lebih maju.<br><br>
                         </p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Lihat Selengkapnya</a>
+                        <a class="btn btn-primary rounded-pill py-2 px-4" href="{{ route('under') }}">Lihat Selengkapnya</a>
                     </div>
                 </div>
             </div>

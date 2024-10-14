@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\report\Report_Accrual_Interest;
 
-use App\Models\Report;
+use App\Models\report;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -72,8 +72,8 @@ class Reportcontroller extends Controller
 
         $row = 9;
         foreach ($reports as $report) {
-            $sheet->setCellValue('A' . $row, $report->month);
-            $sheet->setCellValue('B' . $row, $report->transaction_date);
+            $sheet->setCellValue('A' . $row, $report->bulanke);
+            $sheet->setCellValue('B' . $row, $report->tglangsuran);
             $sheet->setCellValue('C' . $row, $report->days_interest);
             $sheet->setCellValue('D' . $row, $report->payment_amount);
             $sheet->setCellValue('E' . $row, $report->withdrawal);

@@ -82,9 +82,9 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-0 mx-lg-auto">
                         <a href="{{ url('landing') }}" class="nav-item nav-link active">Beranda</a>
-                        <a href="{{ url('about') }}" class="nav-item nav-link">Tentang</a>
-                        <a href="{{ url('landing/artikel') }}" class="nav-item nav-link">Artikel</a>
-                        <a href="{{ url('landing/contact') }}" class="nav-item nav-link">Kontak</a>
+                        <a href="{{ route('under') }}" class="nav-item nav-link">Artikel</a>
+                        <a href="{{ route('under') }}" class="nav-item nav-link">Artikel</a>
+                        <a href="{{ route('under') }}" class="nav-item nav-link">Kontak</a>
                         <div class="nav-btn px-3">
                             <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
                             <a href="{{ url('login') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> Login</a>

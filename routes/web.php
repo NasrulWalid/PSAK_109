@@ -8,7 +8,7 @@ use App\Http\Controllers\PricingControllerAdmin;
 use App\Http\Controllers\ManajemenController;
 use App\Http\Controllers\ManajemenControllerAdmin;
 use App\Http\Controllers\ReportEffectiveController;
-use App\Http\Controllers\report\Report_Accrual_Interest\ReportController;
+use App\Http\Controllers\report\Report_Accrual_Interest\Reportcontroller;
 
 // Rute untuk halaman utama
 Route::get('/', function () {
@@ -82,3 +82,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/report/export-pdf/{no_acc}', [ReportController::class, 'exportPdf'])->name('report.exportPdf');
     Route::get('/report/export-excel/{no_acc}', [ReportController::class, 'exportExcel'])->name('report.exportExcel');
 });
+
+Route::get('/sedang-dalam-pengembangan', function () {
+    return view('sedang-dalam-pengembangan');
+})->name('under');

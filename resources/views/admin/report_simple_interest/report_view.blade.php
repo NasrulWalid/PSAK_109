@@ -59,7 +59,7 @@
                 <tbody>
                     @foreach ($reports as $report)
                         <tr>
-                            <td>{{ $report->month }}</td>
+                            <td>{{ $report->bulanke }}</td>
                             <td>{{ date('Y-m-d H:i:s', strtotime($report->tglangsuran)) }}</td>
                             <td>{{ $report->days_interest }}</td>
                             <td>{{ number_format($report->payment_amount, 2) }}</td>

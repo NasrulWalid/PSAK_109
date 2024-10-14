@@ -22,10 +22,10 @@
                         <div class="col-md-6 col-lg-6 col-xl-3">
                             <div class="footer-item">
                                 <h4 class="text-white mb-4">Useful Links</h4>
-                                <a href="{{ url('/') }}"><i class="fas fa-angle-right me-2"></i> Beranda</a>
-                                <a href="{{ url('/about') }}"><i class="fas fa-angle-right me-2"></i> Tentang</a>
-                                <a href="{{ url('/articles') }}"><i class="fas fa-angle-right me-2"></i> Artikel</a>
-                                <a href="{{ url('/contact') }}"><i class="fas fa-angle-right me-2"></i> Kontak</a>
+                                <a href="{{ route('under') }}"><i class="fas fa-angle-right me-2"></i> Beranda</a>
+                                <a href="{{ route('under') }}"><i class="fas fa-angle-right me-2"></i> Tentang</a>
+                                <a href="{{ route('under') }}"><i class="fas fa-angle-right me-2"></i> Artikel</a>
+                                <a href="{{ route('under') }}"><i class="fas fa-angle-right me-2"></i> Kontak</a>
                             </div>
                         </div>
                     </div>

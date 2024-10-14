@@ -40,7 +40,6 @@ class report extends Model
     {
         return DB::table('public.tblcfobalcorporateloan')
             ->where('no_acc', $no_acc)
-            ->orderBy('tglangsuran')
             ->get();
     }
 }
