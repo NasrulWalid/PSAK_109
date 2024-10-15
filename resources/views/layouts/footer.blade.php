@@ -3,7 +3,7 @@
     <strong>Copyright &copy; 2024 <a href="https://www.pramatech.id/">PT Pramatech Adimitra Solusi</a>.</strong>
     All rights reserved.
     {{-- <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 
+      <b>Version</b>
     </div> --}}
   </footer>
 
@@ -49,5 +49,10 @@
 <script src="{{ asset('lte/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('lte/dist/js/pages/dashboard.js') }}"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

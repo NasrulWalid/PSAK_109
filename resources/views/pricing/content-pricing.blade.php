@@ -98,19 +98,30 @@
         .save-button:hover {
             background-color: #0056b3;
         }
+        .form-group{
+            width: 20%;
+        }
+        .form-group{
+            position:relative;
+        }
+        .form-group label {
+        margin-right: 15px;
+    }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content">
             <h1>Tabel PSAK 71</h1>
-            <div class="company-type">
-                <label for="company_type">Company Type:</label>
-                <select id="company_type" name="company_type" onchange="showModules()">
-                    <option value="Bank">Bank</option>
-                    <option value="Perusahaan Pembiayaan">Perusahaan Pembiayaan</option>
-                    <option value="Perusahaan Asuransi">Perusahaan Asuransi</option>
-                </select>
+            <div class="form-group">
+                <label for="nama_pt">Nama PT</label>
+                <div>
+                    <input type="text" class="form-control d-flex" value="{{ Auth::user()->company_type }}" disabled>
+                    <input type="hidden" name="nama_pt" value="{{ Auth::user()->company_type }}">
+                    @error('nama_pt')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
             </div>
             <div class="bisnis-type">
                 <label for="bisnis_type">Bussiness Type:</label>

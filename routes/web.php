@@ -8,6 +8,8 @@ use App\Http\Controllers\PricingControllerAdmin;
 use App\Http\Controllers\ManajemenController;
 use App\Http\Controllers\ManajemenControllerAdmin;
 use App\Http\Controllers\ReportEffectiveController;
+use App\Http\Controllers\upload\tblcorporateController;
+use App\Http\Controllers\upload\tblmasterController;
 use App\Http\Controllers\report\Report_Accrual_Interest\Reportcontroller;
 
 // Rute untuk halaman utama
@@ -85,3 +87,14 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/sedang-dalam-pengembangan', function () {
     return view('sedang-dalam-pengembangan');
 })->name('under');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/upload/tblcorporate', [tblcorporateController::class, 'index'])->name('corporate.index');
+
+});
+Route::post('/execute-stored-procedure', [tblcorporateController::class, 'executeStoredProcedure'])->name('execute.stored.procedure');
+Route::post('/import-excel', [tblcorporateController::class, 'importExcel'])->name('import.excel');
+
+Route::get('/tblmaster', [tblmasterController::class, 'index'])->name('tblmaster.index');
+Route::post('/tblmaster/import', [tblmasterController::class, 'importExcel'])->name('tblmaster.import');
+Route::post('/execute-stored-procedure', [tblmasterController::class, 'executeStoredProcedure'])->name('execute.stored.procedure');

@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link" style="text-decoration: none">
-        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+    <a href="{{ url('landing') }}" class="brand-link" style="text-decoration: none">
+        <x-application-logo  />
     </a>
 
     <!-- Sidebar -->
@@ -43,12 +43,12 @@
                         <span>Pricing</span>
                     </a>
                 </li>
-
+                <br>
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
                 <!-- Menu Heading -->
-                <div class="sidebar-heading">
+                <div class="sidebar-heading" style="color: white; margin-left:15px;">
                     Menu
                 </div>
 
@@ -68,12 +68,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('report.index') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -89,12 +89,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -110,12 +110,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -131,12 +131,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -152,12 +152,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -173,12 +173,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -194,12 +194,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -215,12 +215,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Effective</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('under') }}" class="nav-link">
                                         <p class="text-start">✦ Simple Interest</p>
                                     </a>
                                 </li>
@@ -241,13 +241,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./widgets/small-box.html" class="nav-link d-flex align-items-center">
+                            <a href="{{ route('tblmaster.index') }}" class="nav-link d-flex align-items-center">
                                 <p class="ms-2 mb-0 text-center" style="width: 30px;">✦</p>
                                 <p class="ms-3 mb-0 flex-grow-1 text-start">Upload File tblmaster_tmpcorporate</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./widgets/info-box.html" class="nav-link d-flex align-items-center">
+                            <a href="{{ route('corporate.index') }}" class="nav-link d-flex align-items-center">
                                 <p class="ms-2 mb-0 text-center" style="width: 30px;">✦</p>
                                 <p class="ms-3 mb-0 flex-grow-1 text-start">Upload File tblcorporateloancabangdetail</p>
                             </a>
@@ -256,12 +256,12 @@
                 </li>
 
 
-
+                <br>
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
                 <!-- Administrator Options -->
-                <div class="sidebar-heading">
+                <div class="sidebar-heading" style="color: white; margin-left:15px; margin-top:10px;">
                     Options
                 </div>
 
@@ -283,13 +283,7 @@
     </a>
 </li>
 @endif
-                <!-- Activity Log -->
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <i class="fas fa-fw fa-list"></i>
-                        <span>Activity Log</span>
-                    </a>
-                </li>
+
 
             </ul><br><br><br>
         </nav>

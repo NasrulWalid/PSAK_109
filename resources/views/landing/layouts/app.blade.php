@@ -74,7 +74,9 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a href="{{ url('landing') }}" class="navbar-brand p-0">
-                    <h1 class="text-primary mb-0"><i class="fab fa-slack me-2"></i> PSAK71 </h1>
+                    <h1 class="text-primary mb-0">
+                        <img src="{{ asset('img/logo.png') }}" alt="Logo" style="height: 45px; margin-right: 1px;">
+                        </i> PSAK71 </h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>

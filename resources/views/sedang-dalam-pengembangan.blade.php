@@ -7,6 +7,7 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -52,10 +53,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="text-center mb-4">
-            <h1 class="text-primary mb-0" style="font-size: 48px;">
-                <i class="fab fa-slack me-2" style="font-size: 64px;"></i> PSAK71
-            </h1>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <x-application-logo />
         </div>
 
         <h1 class="under-construction">Sedang Dalam Pengembangan</h1>
