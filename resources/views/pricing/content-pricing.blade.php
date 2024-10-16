@@ -99,7 +99,7 @@
             background-color: #0056b3;
         }
         .form-group{
-            width: 20%;
+            width: 30%;
         }
         .form-group{
             position:relative;
@@ -113,16 +113,18 @@
     <div class="container">
         <div class="content">
             <h1>Tabel PSAK 71</h1>
-            <div class="form-group">
-                <label for="nama_pt">Nama PT</label>
-                <div>
-                    <input type="text" class="form-control d-flex" value="{{ Auth::user()->company_type }}" disabled>
-                    <input type="hidden" name="nama_pt" value="{{ Auth::user()->company_type }}">
-                    @error('nama_pt')
+            <div class="form-group d-flex align-items-center">
+                <label for="company_type" >Company Type :</label>
+                <div class="flex-grow-1">
+                    <input type="text" class="form-control" value="{{ Auth::user()->company_type }}" disabled>
+                    <input type="hidden" name="company_type" value="{{ Auth::user()->company_type }}">
+                    @error('company_type')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
+
+
             <div class="bisnis-type">
                 <label for="bisnis_type">Bussiness Type:</label>
                 <select id="bisnis_type" name="bisnis_type" onchange="showModules()">
@@ -156,74 +158,74 @@
                         <tr>
                             <td>1</td>
                             <td>Opening Balance</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="opening_balance_method" value="1"></td>
+                            <td><input type="radio" name="opening_balance_method" value="0"></td>
                             <td>Initial Recognition Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="initial_recognition_journal" value="1"></td>
+                            <td><input type="radio" name="initial_recognition_journal" value="0"></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Outstanding Balance</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="outstanding_balance_method" value="1"></td>
+                            <td><input type="radio" name="outstanding_balance_method" value="0"></td>
                             <td>Amortized Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="amortized_journal" value="1"></td>
+                            <td><input type="radio" name="amortized_journal" value="0"></td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Expected Cash Flow</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="expected_cash_flow_method" value="1"></td>
+                            <td><input type="radio" name="expected_cash_flow_method" value="0"></td>
                             <td>Time Gap Negative Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="time_gap_negative_journal" value="1"></td>
+                            <td><input type="radio" name="time_gap_negative_journal" value="0"></td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Calculated Accrual Interest</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="calculated_accrual_interest_method" value="1"></td>
+                            <td><input type="radio" name="calculated_accrual_interest_method" value="0"></td>
                             <td>Full CP Prepayment Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="full_cp_prepayment_journal" value="1"></td>
+                            <td><input type="radio" name="full_cp_prepayment_journal" value="0"></td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>Amortized Fee</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="amortized_fee_method" value="1"></td>
+                            <td><input type="radio" name="amortized_fee_method" value="0"></td>
                             <td>Partial CP Prepayment Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="partial_cp_prepayment_journal" value="1"></td>
+                            <td><input type="radio" name="partial_cp_prepayment_journal" value="0"></td>
                         </tr>
                         <tr>
                             <td>6</td>
                             <td>Amortized Cost</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="amortized_cost_method" value="1"></td>
+                            <td><input type="radio" name="amortized_cost_method" value="0"></td>
                             <td>Restructuring Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="restructuring_journal" value="1"></td>
+                            <td><input type="radio" name="restructuring_journal" value="0"></td>
                         </tr>
                         <tr>
                             <td>7</td>
                             <td>Expenses Off market</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="expenses_off_market_method" value="1"></td>
+                            <td><input type="radio" name="expenses_off_market_method" value="0"></td>
                             <td>Impairment Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="impairment_journal" value="1"></td>
+                            <td><input type="radio" name="impairment_journal" value="0"></td>
                         </tr>
                         <tr>
                             <td>8</td>
                             <td>Interest Deferred Restructuring</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="interest_deferred_restructuring_method" value="1"></td>
+                            <td><input type="radio" name="interest_deferred_restructuring_method" value="0"></td>
                             <td>General/Special Journal</td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
+                            <td><input type="radio" name="general_special_journal" value="1"></td>
+                            <td><input type="radio" name="general_special_journal" value="0"></td>
                         </tr>
                     </tbody>
                 </table>

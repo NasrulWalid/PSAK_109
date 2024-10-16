@@ -69,11 +69,12 @@
     <div class="content-header">
 
         <!-- Import Button -->
-        <a data-toggle="modal" data-target="#modalImport" class="btn btn-success btn-icon-split ">
-            <span class="icon text-white-50 ">
-                <i class="fas fa-file-import" style="color: white;"> Import</i>
-            </span>
-        </a>
+<a data-toggle="modal" data-target="#modalImport" class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-file-import"></i>
+    </span>
+    <span class="text">Import</span>
+</a>
         <button type="button" class="btn btn-warning btn-icon-split" data-bs-toggle="modal" data-bs-target="#executeModal">
             <span class="icon text-white-50">
               <i class="fas fa-play"></i> Execute
