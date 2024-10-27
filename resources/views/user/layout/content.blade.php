@@ -90,36 +90,57 @@
           <section class="col-lg-7 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                <div class="card-header">
+                  <h3 class="card-title">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    Amortised
+                  </h3>
+                  <div class="card-tools">
+                    <ul class="nav nav-pills ml-auto"></ul>
                   </div>
-                </div>
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <div class="tab-content p-0">
+                    <!-- Area Chart -->
+                    <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
+                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                    </div>
+                  </div>
+                </div><!-- /.card-body -->
+              </div>
+
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <script>
+                // Line Chart
+                const revenueChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d');
+                new Chart(revenueChartCanvas, {
+                  type: 'line',
+                  data: {
+                    labels: ['01/01/2021', '01/03/2021', '01/05/2021', '01/07/2021', '01/08/2021', '01/09/2021', '01/10/2021', '01/11/2021', '01/12/2021'],
+                    datasets: [{
+                      label: 'Amortised',  // Changed label here
+                      backgroundColor: 'rgba(60,141,188,0.2)',
+                      borderColor: 'rgba(60,141,188,1)',
+                      pointRadius: false,
+                      data: [0, 10000, 20000, 40000, 60000, 70000, 90000, 80000, 100000]
+                    }]
+                  },
+                  options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    legend: { display: false },
+                    scales: {
+                      xAxes: [{
+                        gridLines: { display: false },
+                        ticks: { autoSkip: true }
+                      }],
+                      yAxes: [{ gridLines: { display: false } }]
+                    }
+                  }
+                });
+              </script>
+
+
 
             <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-primary">
@@ -459,49 +480,53 @@
           <section class="col-lg-5 connectedSortable">
 
             <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Visitors
-                </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
+            <div class="card bg-gradient-secondary">
+                <div class="card-header border-0">
+                    <h3 class="card-title">
+                        <i class="fas fa-dollar-sign -alt mr-1"></i>
+                        Tabel Debitur
+                    </h3>
+                    <!-- card tools -->
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.card-tools -->
                 </div>
-                <!-- /.card-tools -->
-              </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitors</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Sales</div>
-                  </div>
-                  <!-- ./col -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Debitur</th>
+                                    <th class="d-flex justify-content-end">Outstanding Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>John Doe</td>
+                                    <td class="d-flex justify-content-end">Rp 1.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Jane Smith</td>
+                                    <td class="d-flex justify-content-end">Rp 500.000</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Michael Johnson</td>
+                                    <td class="d-flex justify-content-end">Rp 750.000</td>
+                                </tr>
+                                <td></td>
+                                <td>Total Outstanding Balance: </td>
+                                <td class="d-flex justify-content-end" >Rp 2.250.000</td>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <!-- /.row -->
-              </div>
-            </div>
-            <!-- /.card -->
 
             <!-- solid sales graph -->
             <div class="card bg-gradient-info">

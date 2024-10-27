@@ -21,7 +21,7 @@
       );
       // eslint-disable-next-line no-alert
       alert(
-        '"Anda Saat Ini Mengakses Versi Demo dari Website Ini. Situs Ini dibuat Khusus untuk Keperluan Uji Coba dan Pengembangan Program."!'
+        '"Anda Saat Ini Mengakses Versi Demo dari Website Ini. Website Ini dibuat Khusus untuk Keperluan Uji Coba dan Pengembangan Program."!'
       );
     }
   }, 1000);

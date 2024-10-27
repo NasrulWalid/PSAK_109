@@ -6,12 +6,14 @@
     <title>Konfigurasi Akuntansi</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
+            color: #343a40;
+            font-size: 14px; /* Ukuran teks lebih kecil */
         }
 
         .container {
@@ -20,239 +22,275 @@
         }
 
         .content {
-            margin-left: 270px; /* Berikan margin agar konten tidak tertutup sidebar */
+            margin-left: 270px;
+            margin-top: 20px; /* Menambahkan jarak margin dari atas */
             flex-grow: 1;
-            padding: 20px;
+            padding: 15px; /* Mengurangi padding agar lebih ringkas */
             overflow-x: auto;
         }
 
+
         h1 {
             text-align: center;
-            margin-bottom: 30px;
-            color: #343a40;
+            margin-bottom: 15px; /* Mengurangi margin bawah */
+            color: #495057;
+            font-size: 20px; /* Ukuran font lebih kecil */
+            font-weight: bold;
         }
-
-        .company-type {
-            margin-bottom: 20px;
+        .alert {
+        position: relative;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            border: none;
+            background: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px; /* Mengurangi jarak antar elemen */
         }
 
         label {
             font-weight: bold;
             color: #495057;
+            width: 140px; /* Mengurangi lebar label */
+            font-size: 14px; /* Ukuran teks label lebih kecil */
+        }
+
+        input[type="text"], select {
+            padding: 8px; /* Mengurangi padding */
+            font-size: 14px; /* Ukuran teks lebih kecil */
+            border-radius: 4px; /* Border radius lebih kecil */
+            border: 1px solid #ced4da;
+            width: 100%;
+            max-width: 320px; /* Lebar maksimal sedikit lebih kecil */
+            transition: all 0.3s ease;
         }
 
         select {
-            padding: 5px;
-            font-size: 16px;
-            margin-left: 10px;
-            border-radius: 5px;
-            border: 1px solid #ced4da;
+            cursor: pointer;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
         table {
-            width: 100%; /* Lebar tabel 100% */
+            width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 4px; /* Mengurangi radius pada tabel */
+            overflow: hidden;
         }
 
         th, td {
             border: 1px solid #dee2e6;
-            padding: 10px;
+            padding: 8px; /* Mengurangi padding pada sel */
             text-align: center;
+            font-size: 14px; /* Ukuran teks pada tabel lebih kecil */
         }
 
         th {
-            background-color: #007bff;
+            background-color: #4481c2;
             color: white;
         }
 
         tbody tr:nth-child(even) {
-            background-color: #f1f1f1;
+            background-color: #f8f9fa;
         }
 
         tbody tr:hover {
-            background-color: #e2e6ea;
+            background-color: #e9ecef;
         }
 
-        td input[type="checkbox"] {
-            transform: scale(1.5);
+        td input[type="radio"] {
+            transform: scale(1.1); /* Ukuran radio button sedikit lebih kecil */
             cursor: pointer;
         }
 
-
         .save-button {
-            display: block;
-            width: 150px;
-            padding: 10px;
-            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 110px; /* Lebar tombol lebih kecil */
+            padding: 8px; /* Padding tombol lebih kecil */
+            margin: 12px auto; /* Mengurangi margin pada tombol */
             background-color: #007bff;
             color: white;
             text-align: center;
-            font-size: 16px;
-            border-radius: 5px;
+            font-size: 16px; /* Ukuran teks pada tombol lebih kecil */
+            border-radius: 4px; /* Radius tombol lebih kecil */
             border: none;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .save-button:hover {
             background-color: #0056b3;
+            transform: scale(1.03);
         }
-        .form-group{
-            width: 30%;
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content {
+                margin-left: 0;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            label {
+                width: 120px;
+            }
+
+            input[type="text"], select {
+                max-width: 100%;
+            }
+
+            .save-button {
+                width: 100%;
+            }
         }
-        .form-group{
-            position:relative;
-        }
-        .form-group label {
-        margin-right: 15px;
-    }
     </style>
+
+    <!-- Link Font Awesome untuk ikon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
     <div class="container">
         <div class="content">
             <h1>Tabel PSAK 71</h1>
-            <div class="form-group d-flex align-items-center">
-                <label for="company_type" >Company Type :</label>
-                <div class="flex-grow-1">
-                    <input type="text" class="form-control" value="{{ Auth::user()->company_type }}" disabled>
-                    <input type="hidden" name="company_type" value="{{ Auth::user()->company_type }}">
-                    @error('company_type')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
+                    @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                        <button type="button" class="close" onclick="this.parentElement.style.display='none';">&times;</button>
+                    </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                            <button type="button" class="close" onclick="this.parentElement.style.display='none';">&times;</button>
+                        </div>
+                    @endif
+
+        <form action="{{ route('mapping.save') }}" method="POST">
+         @csrf
+            <div class="form-group">
+                <label for="company_type">Tipe Perusahaan:</label>
+                <input type="text" class="form-control" id="company_type" value="{{ Auth::user()->company_type }}" disabled>
+                <input type="hidden" name="company_type" value="{{ Auth::user()->company_type }}">
+                @error('company_type')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
-
-            <div class="bisnis-type">
-                <label for="bisnis_type">Bussiness Type:</label>
-                <select id="bisnis_type" name="bisnis_type" onchange="showModules()">
-                    <option value="retailbanking">Retail Banking</option>
-                    <option value="smebanking">SME Banking</option>
-                    <option value="corporatebanking">Corporate Banking</option>
+            <div class="form-group">
+                <label for="bisnis_type">Tipe Bisnis:</label>
+                <select id="bisnis_type" name="bisnis_type" required>
+                    <option value="">--Pilih Tipe Bisnis--</option>
+                    <option value="L001">SMALL AND MEDIUM ENTERPRISES</option>
+                    <option value="L002">KREDIT TANPA AGUNAN</option>
+                    <option value="L003">KREDIT PEMILIKAN MOBIL</option>
+                    <option value="L004">KREDIT PEMILIKAN RUMAH</option>
+                    <option value="L005">INSURANCE</option>
+                    <option value="L006">USAHA KECIL DAN MENENGAH</option>
+                    <option value="L007">KREDIT ANGSURAN BERJANGKA</option>
+                    <option value="L008">TRADE FINANCE</option>
                 </select>
+                @error('bisnis_type')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
-            <div id="modules-Bank">
-                <table>
-                    <thead>
+
+
+                <div id="modules-Bank" class="modul">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Modules</th>
+                                <th>Effective</th>
+                                <th>Simple Interest</th>
+                            </tr>
+                        </thead>
+                        @php
+                        // Mendefinisikan array modul secara manual
+                        $moduls = [
+                            ['modul_id' => 'M0001', 'nama_modul' => 'Interest Deferred Restructuring'],
+                            ['modul_id' => 'M0002', 'nama_modul' => 'Expenses Off market'],
+                            ['modul_id' => 'M0003', 'nama_modul' => 'Amortized Cos'],
+                            ['modul_id' => 'M0004', 'nama_modul' => 'Amortized Fee'],
+                            ['modul_id' => 'M0005', 'nama_modul' => 'Calculated Accrual Interest'],
+                            ['modul_id' => 'M0006', 'nama_modul' => 'Expected Cash Flow'],
+                            ['modul_id' => 'M0007', 'nama_modul' => 'Outstanding Balance'],
+                            ['modul_id' => 'M0008', 'nama_modul' => 'Opening Balance'],
+                        ];
+                    @endphp
+
+                    @foreach($moduls as $index => $modul)
                         <tr>
-                            <th>No</th>
-                            <th>Modules</th>
-                            <th colspan="2">Method</th>
-                            <th>Journal</th>
-                            <th colspan="2">Method</th>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $modul['nama_modul'] }}</td>
+                            <td>
+                                <input type="radio" name="module_{{ $modul['modul_id'] }}" value="1" id="effective_{{ $modul['modul_id'] }}" onclick="updateInterestValue('{{ $modul['modul_id'] }}', 'effective')">
+
+                            </td>
+                            <td>
+                                <input type="radio" name="module_{{ $modul['modul_id'] }}" value="0" id="simple_interest_{{ $modul['modul_id'] }}" onclick="updateInterestValue('{{ $modul['modul_id'] }}', 'simple')">
+
+                            </td>
                         </tr>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th>Effective</th>
-                            <th>Simple Interest</th>
-                            <th></th>
-                            <th>Effective</th>
-                            <th>Simple Interest</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Opening Balance</td>
-                            <td><input type="radio" name="opening_balance_method" value="1"></td>
-                            <td><input type="radio" name="opening_balance_method" value="0"></td>
-                            <td>Initial Recognition Journal</td>
-                            <td><input type="radio" name="initial_recognition_journal" value="1"></td>
-                            <td><input type="radio" name="initial_recognition_journal" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Outstanding Balance</td>
-                            <td><input type="radio" name="outstanding_balance_method" value="1"></td>
-                            <td><input type="radio" name="outstanding_balance_method" value="0"></td>
-                            <td>Amortized Journal</td>
-                            <td><input type="radio" name="amortized_journal" value="1"></td>
-                            <td><input type="radio" name="amortized_journal" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Expected Cash Flow</td>
-                            <td><input type="radio" name="expected_cash_flow_method" value="1"></td>
-                            <td><input type="radio" name="expected_cash_flow_method" value="0"></td>
-                            <td>Time Gap Negative Journal</td>
-                            <td><input type="radio" name="time_gap_negative_journal" value="1"></td>
-                            <td><input type="radio" name="time_gap_negative_journal" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Calculated Accrual Interest</td>
-                            <td><input type="radio" name="calculated_accrual_interest_method" value="1"></td>
-                            <td><input type="radio" name="calculated_accrual_interest_method" value="0"></td>
-                            <td>Full CP Prepayment Journal</td>
-                            <td><input type="radio" name="full_cp_prepayment_journal" value="1"></td>
-                            <td><input type="radio" name="full_cp_prepayment_journal" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Amortized Fee</td>
-                            <td><input type="radio" name="amortized_fee_method" value="1"></td>
-                            <td><input type="radio" name="amortized_fee_method" value="0"></td>
-                            <td>Partial CP Prepayment Journal</td>
-                            <td><input type="radio" name="partial_cp_prepayment_journal" value="1"></td>
-                            <td><input type="radio" name="partial_cp_prepayment_journal" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Amortized Cost</td>
-                            <td><input type="radio" name="amortized_cost_method" value="1"></td>
-                            <td><input type="radio" name="amortized_cost_method" value="0"></td>
-                            <td>Restructuring Journal</td>
-                            <td><input type="radio" name="restructuring_journal" value="1"></td>
-                            <td><input type="radio" name="restructuring_journal" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Expenses Off market</td>
-                            <td><input type="radio" name="expenses_off_market_method" value="1"></td>
-                            <td><input type="radio" name="expenses_off_market_method" value="0"></td>
-                            <td>Impairment Journal</td>
-                            <td><input type="radio" name="impairment_journal" value="1"></td>
-                            <td><input type="radio" name="impairment_journal" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Interest Deferred Restructuring</td>
-                            <td><input type="radio" name="interest_deferred_restructuring_method" value="1"></td>
-                            <td><input type="radio" name="interest_deferred_restructuring_method" value="0"></td>
-                            <td>General/Special Journal</td>
-                            <td><input type="radio" name="general_special_journal" value="1"></td>
-                            <td><input type="radio" name="general_special_journal" value="0"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button class="save-button" onclick="saveConfiguration()">Simpan Konfigurasi</button>
-            </div>
+                    @endforeach
+                </tbody>
+                    </table>
+                    <button class="btn btn-primary save-button" type="submit">
+                        <i class="fas fa-save"></i> Simpan
+                    </button>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <script>
-        function showModules() {
-            const selectedType = document.getElementById('company_type').value;
-            document.getElementById('modules-Bank').classList.add('hidden');
-            document.getElementById('modules-Perusahaan Pembiayaan').classList.add('hidden');
-            document.getElementById('modules-Perusahaan Asuransi').classList.add('hidden');
-
-            if (selectedType === 'Bank') {
-                document.getElementById('modules-Bank').classList.remove('hidden');
-            } else if (selectedType === 'Perusahaan Pembiayaan') {
-                document.getElementById('modules-Perusahaan Pembiayaan').classList.remove('hidden');
-            } else if (selectedType === 'Perusahaan Asuransi') {
-                document.getElementById('modules-Perusahaan Asuransi').classList.remove('hidden');
-            }
-        }
-
-        function saveConfiguration() {
-            alert("Konfigurasi berhasil disimpan!");
-        }
-    </script>
 </body>
 </html>
+
+<script>
+    function updateInterestValue(modulId, type) {
+        // Jika Effective dipilih, Simple Interest akan otomatis diset ke 0
+        if (type === 'effective') {
+            document.getElementById('simple_interest_' + modulId).checked = false;
+        }
+        // Jika Simple Interest dipilih, Effective akan otomatis diset ke 0
+        else {
+            document.getElementById('effective_' + modulId).checked = false;
+        }
+    }
+</script>

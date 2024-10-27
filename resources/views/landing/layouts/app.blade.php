@@ -28,6 +28,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('landing/css/style.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 </head>
 
 <body>
@@ -40,10 +41,18 @@
                 <div class="col-lg-8 text-center text-lg-start mb-lg-0">
                     <div class="d-flex flex-wrap">
                         <div class="border-end border-primary pe-3">
-                            <a href="#" class="text-muted small"><i class="fas fa-map-marker-alt text-primary me-2"></i>Lihat Lokasi Kami</a>
+                            <a href="https://maps.app.goo.gl/sW92bVXpx1SEWCuy7"
+                               target="_blank"
+                               class="text-muted small">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>Lihat Lokasi Kami
+                            </a>
                         </div>
+
+
                         <div class="ps-3">
-                            <a href="mailto:example@gmail.com" class="text-muted small"><i class="fas fa-envelope text-primary me-2"></i> cs@pramatech.id</a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=riyadi@pramatech.id" class="text-muted small">
+                                <i class="fas fa-envelope text-primary me-2"></i> riyadi@pramatech.id
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -54,13 +63,6 @@
                             <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-twitter"></i></a>
                             <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-instagram"></i></a>
                             <a class="btn p-0 text-primary me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <div class="dropdown ms-3">
-                            <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i class="fas fa-globe-europe text-primary me-2"></i> Indonesia</small></a>
-                            <div class="dropdown-menu rounded">
-                                <a href="#" class="dropdown-item">English</a>
-                                <a href="#" class="dropdown-item">Indonesia</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +86,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-0 mx-lg-auto">
                         <a href="{{ url('landing') }}" class="nav-item nav-link active">Beranda</a>
-                        <a href="{{ route('under') }}" class="nav-item nav-link">Artikel</a>
+                        <a href="{{ route('under') }}" class="nav-item nav-link">Tentang</a>
                         <a href="{{ route('under') }}" class="nav-item nav-link">Artikel</a>
                         <a href="{{ route('under') }}" class="nav-item nav-link">Kontak</a>
                         <div class="nav-btn px-3">

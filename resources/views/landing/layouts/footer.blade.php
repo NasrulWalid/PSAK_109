@@ -37,22 +37,33 @@
                                 <div class="col-lg-6 col-xl-4">
                                     <div class="d-flex">
                                         <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
-                                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                                            <a href="https://maps.app.goo.gl/sW92bVXpx1SEWCuy7" target="_blank">
+
+                                                <i class="fas fa-map-marker-alt fa-2x text-white"></i>
+                                            </a>
                                         </div>
                                         <div>
                                             <h4 class="text-white">Alamat</h4>
-                                            <p class="mb-0">Menara Kuningan 30th floor, Jl. H.R. Rasuna Said Kav.5.</p>
+                                            <a href="https://maps.app.goo.gl/sW92bVXpx1SEWCuy7" class="text-muted small">
+
+                                                <p class="mb-0">Menara Kuningan 30th floor, Jl. H.R. Rasuna Said Kav.5.</p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xl-4">
                                     <div class="d-flex">
                                         <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
-                                            <i class="fas fa-envelope fa-2x"></i>
+                                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=riyadi@pramatech.id" target="_blank">
+                                                <i class="fas fa-envelope fa-2x text-white"></i>
+                                            </a>
                                         </div>
+
                                         <div>
                                             <h4 class="text-white">Email</h4>
-                                            <p class="mb-0">cs@pramatech.id</p>
+                                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=riyadi@pramatech.id" class="text-muted small">
+                                                <p class="mb-0">riyadi@pramatech.id</p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

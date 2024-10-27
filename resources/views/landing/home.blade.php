@@ -65,7 +65,7 @@
                             <i class="fa fa-bullseye fa-3x"></i>
                         </div>
                         <h4 class="mb-4">Mudah Diakses </h4>
-                        <p class="mb-4">Semua dokumen dan sumber daya PSak tersedia dalam satu platform yang mudah diakses kapan saja dan di mana saja, mendukung kebutuhan profesional Anda secara real-time.
+                        <p class="mb-4">Semua dokumen dan sumber daya PSAK tersedia dalam satu platform yang mudah diakses kapan saja dan di mana saja, mendukung kebutuhan profesional Anda secara real-time.
                         </p>
                         <a class="btn btn-primary rounded-pill py-2 px-4" href="{{ route('under') }}">Lihat Selengkapnya</a>
                     </div>
@@ -158,22 +158,30 @@
                     <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="contact-add-item">
                             <div class="contact-icon text-primary mb-4">
+                                <a href="https://maps.app.goo.gl/sW92bVXpx1SEWCuy7" target="_blank">
                                 <i class="fas fa-map-marker-alt fa-2x"></i>
+                            </a>
                             </div>
                             <div>
                                 <h4>Alamat</h4>
+                                <a href="https://maps.app.goo.gl/sW92bVXpx1SEWCuy7" target="_blank">
                                 <p class="mb-0">Menara Kuningan 30th floor, Jl. H.R. Rasuna Said Kav.5.</p>
+                            </a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
                         <div class="contact-add-item">
                             <div class="contact-icon text-primary mb-4">
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=riyadi@pramatech.id" target="_blank">
                                 <i class="fas fa-envelope fa-2x"></i>
+                            </a>
                             </div>
                             <div>
                                 <h4>Email</h4>
-                                <p class="mb-0">cs@pramatech.id</p>
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=riyadi@pramatech.id" class="text-muted small">
+                                    <p class="mb-0">riyadi@pramatech.id</p>
+                                </a>
                             </div>
                         </div>
                     </div>

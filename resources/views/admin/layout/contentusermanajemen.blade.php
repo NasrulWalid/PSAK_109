@@ -13,7 +13,6 @@
         /* Menambahkan margin-top agar tidak mepet dengan navbar */
         .container {
             margin-top: 120px; /* Adjust sesuai kebutuhan */
-            margin-left: 300px; /* Tambahkan jarak dari sidebar di sebelah kiri */
             max-width: 1300px; /* Lebar container diperbesar */
         }
 
@@ -44,8 +43,14 @@
         /* Tambahan margin dan padding agar tombol tidak terlalu mepet */
         .btn {
             margin: 1px;
-            font-size: 0.8rem; /* Ukuran tombol lebih kecil */
+            font-size: 0.9rem; /* Ukuran tombol lebih kecil */
             padding: 5px 10px; /* Mengurangi ukuran tombol */
+            transition: background-color 0.3s, transform 0.3s; /* Menambahkan transisi smooth */
+        }
+
+        /* Efek hover pada tombol */
+        .btn:hover {
+            transform: scale(1.05); /* Meningkatkan ukuran sedikit saat di-hover */
         }
 
         /* Kontrol overflow teks pada kolom */
@@ -54,10 +59,26 @@
             overflow: hidden;
             text-overflow: ellipsis; /* Menggunakan elipsis (...) untuk memotong teks */
         }
+
+        /* Tambahan untuk tombol spesifik */
+        .btn-primary:hover {
+            background-color: #007bff; /* Warna biru lebih terang */
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc3545; /* Warna merah lebih terang */
+            color: white;
+        }
+
+        .btn-primary.ml-auto:hover {
+            background-color: #007bff; /* Warna biru lebih terang untuk tombol tambah user */
+            color: white;
+        }
     </style>
 </head>
 <body>
-
+    <div class="content-wrapper">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -76,7 +97,7 @@
                                 {{ Session::get('success') }}
                             </div>
                         @endif
-                        
+
                         <!-- Fail message -->
                         @if (Session::has('fail'))
                             <div class="alert alert-danger">
@@ -85,7 +106,7 @@
                         @endif
 
                         <!-- Tabel pengguna -->
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered ">
                             <thead class="thead-light">
                                 <tr>
                                     <th>S/N</th>
@@ -172,6 +193,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

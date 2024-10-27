@@ -5,10 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Form Pengguna</title>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Warna latar belakang yang lembut */
+        }
+        .container {
+            background-color: white; /* Warna latar belakang form */
+            border-radius: 10px; /* Sudut yang lebih halus */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Bayangan yang lembut */
+        }
+        h2 {
+            color: #000000; /* Warna judul yang menarik */
+        }
+        .form-control:focus {
+            border-color: #007bff; /* Warna border saat fokus */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Bayangan saat fokus */
+        }
+        .btn-primary {
+            background-color: #007bff; /* Warna tombol */
+            border-color: #007bff; /* Border tombol */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Warna tombol saat hover */
+            border-color: #0056b3; /* Border tombol saat hover */
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* Warna tombol kembali */
+            border-color: #6c757d; /* Border tombol kembali */
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Warna tombol kembali saat hover */
+            border-color: #5a6268; /* Border tombol kembali saat hover */
+        }
+        small.text-danger {
+            font-weight: bold; /* Menebalkan pesan error */
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container mt-5 p-4 border rounded shadow">
+    <div class="container mt-5 p-4">
         <h2 class="mb-4 text-center">Form Tambah Pengguna</h2>
         <form method="POST" action="{{ route('AddUserAdmin') }}">
             @csrf
