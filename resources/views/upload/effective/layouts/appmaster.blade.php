@@ -4,6 +4,6 @@
 
 @include('layouts.sidebar')
 
-@include('upload.simple_interest.tblmaster')
+@include('upload.effective.tblmaster')
 
 @include('layouts.footer')

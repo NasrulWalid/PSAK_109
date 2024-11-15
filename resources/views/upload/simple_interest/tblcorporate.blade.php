@@ -6,18 +6,20 @@
   <title>Data Table Corporate Loan Cabang Detail</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
+
     body {
       background-color: #f8f9fa;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 12px;
     }
     .section-header {
       margin-top: 60px;
     }
     h1 {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #4e73df;
     }
@@ -65,7 +67,7 @@
 </head>
 <body>
     <div class="content-wrapper">
-        <div class="container mt-5">
+        <div class="container mt-5 ms-5">
             <div class="section-header text-center mb-4">
                 <h1>Data Table Corporate Loan Cabang Detail</h1>
             </div>

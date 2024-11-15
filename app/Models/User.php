@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var string
      */
     protected $table = 'tbl_users';
-    
+
 
     /**
      * Primary key untuk tabel.
@@ -39,6 +39,8 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
+        'id_pt',
+        'upload_foto'
     ];
 
     /**

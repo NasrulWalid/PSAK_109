@@ -27,7 +27,7 @@
                                     <td>{{ 'null' }}</td>
                                     <td>{{ 'null'}}</td>
                                     <td>
-                                        <a href="{{ route('report-outstanding-eff.view', $loan->no_acc) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('report-outstanding-eff.view', ['id_pt' => $loan->id_pt]) }}" class="btn btn-sm btn-info">
                                             <i class="fas fa-eye" style="margin-right: 5px;"></i> View
                                         </a>
                                     </td>
@@ -35,33 +35,25 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <!-- Menambahkan row untuk pagination dan showing -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 text-left">
-            <div class="showing-entries">
-                Showing
-                {{$loans->firstItem()}}
-                to
-                {{$loans->lastItem()}}
-                of
-                {{$loans->total()}}
-                entries
-            </div>
-        </div>
-        <div class="col-md-6">
-            <!-- Menambahkan pagination dengan d-flex justify-content-end untuk menekan ke kanan -->
-            <div class="d-flex justify-content-end">
-                {{ $loans->onEachSide(1)->links('pagination::bootstrap-4') }}
-            </div>
-        </div>
-    </div>
-</div>
                 </div>
             </section>
+
+            <!-- Pagination Links -->
+
         </div>
     </div>
 </div>
+
+<!-- JavaScript -->
+<script>
+    function changePerPage() {
+        const perPage = document.getElementById('per_page').value;
+        const url = new URL(window.location.href);
+        url.searchParams.set('per_page', perPage);
+        url.searchParams.delete('page'); // Hapus parameter page saat mengganti per_page
+        window.location.href = url;
+    }
+</script>
 
 <!-- Custom CSS -->
 <style>
@@ -70,18 +62,46 @@
         background-color: #f4f7fc;
         font-family: 'Arial', sans-serif;
     }
+    /* STYLE PAGINATION */
     .showing-entries {
-        font-size: 12px; /* Ganti ukuran font sesuai keinginan, misalnya 12px, 14px, dll */
-        margin-top: 20px;
-    }
-    .pagination {
-        margin-top: 20px;
+        font-size: 14px;
     }
     .pagination .page-item.active .page-link {
-    background-color: #8bc3ff; /* Warna latar halaman aktif */
-    border-color: #007bff; /* Warna border halaman aktif */
-    color: white; /* Warna teks halaman aktif */
-}
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+    #per_page {
+    width: 80px; /* Lebar default */
+    min-width: 100px; /* Lebar minimum */
+    max-width: 150px; /* Lebar maksimum */
+    transition: all 0.3s ease; /* Efek transisi halus */
+    border-radius: 5px; /* Sudut membulat */
+    padding: 5px; /* Jarak dalam */
+    cursor: pointer; /* Gaya kursor */
+    }
+
+    /* Tambahkan efek saat dropdown dibuka */
+    #per_page:focus {
+        outline: none; /* Hilangkan outline default */
+        box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Shadow saat aktif */
+        border-color: #007bff; /* Warna border aktif */
+    }
+
+    #per_page:focus {
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        background-color: #f0f8ff;
+        transform: scale(1.05);
+    }
+
+    #per_page option {
+        transition: background-color 0.2s ease;
+    }
+
+    #per_page option:hover {
+        background-color: #73b9ff;
+    }
+    /* STYLE PAGINATION */
     .main-content {
         margin-left: 20px; /* Diperbarui untuk menghapus margin kiri */
         width: 100%; /* Diperbarui lebar */
@@ -150,4 +170,9 @@
 </style>
 
 <!-- Font Awesome Link -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous">
+function changePerPage() {
+        const perPage = document.getElementById('per_page').value;
+        window.location.href = `?per_page=${perPage}`; // Redirect dengan parameter per_page
+    }
+</script>

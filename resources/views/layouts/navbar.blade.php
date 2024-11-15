@@ -167,6 +167,33 @@
   .dark-mode #darkModeIcon {
     color: #f0e68c;
   }
+  /* Styling .table-striped untuk dark mode */
+.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #2e2e2e; /* Warna latar belakang baris ganjil */
+}
+
+.dark-mode .table-striped tbody tr:nth-of-type(even) {
+    background-color: #3a3a3a; /* Warna latar belakang baris genap */
+}
+
+.dark-mode .table-striped tbody tr {
+    color: #ffffff; /* Warna teks di mode gelap */
+}
+/* Warna teks label saat dark mode */
+.dark-mode label {
+    color: #ffffff;
+}
+
+/* Styling untuk h1-h5 di dark mode */
+.dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5 {
+    color: #ffffff; /* Warna teks heading untuk dark mode */
+}
+/* Dark mode styling for the chart container */
+.dark-mode .card.bg-gradient-secondary {
+    background-color: #1e1e1e; /* Warna background card untuk tabel */
+    color: #ffffff;
+}
+
 
   /* Ensuring all navbar icons are visible */
   .navbar .nav-link i {

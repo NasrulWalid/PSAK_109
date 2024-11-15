@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Table Corporate Loan Cabang Detail</title>
+  <title>Data Table Master - Effective</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     body {
       background-color: #f4f7fc;
@@ -13,6 +14,7 @@
       align-items: center; /* Center vertically */
       height: 100vh; /* Full height of the viewport */
       margin: 0; /* Remove default margin */
+      font-size: 12px;
     }
     .section-header {
       text-align: center;
@@ -21,6 +23,7 @@
     }
     h1 {
       font-weight: bold;
+      font-size: 2rem;
       color: #007bff;
     }
     .card {
@@ -57,24 +60,76 @@
       background-color: #218838;
       transform: scale(1.05);
     }
+        @keyframes popupFadeIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.5); /* Mulai dari ukuran setengah */
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1); /* Ukuran normal */
+        }
+    }
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        z-index: 1000;
+        display: none; /* Hide by default */
+        text-align: center; /* Rata tengah */
+        animation: popupFadeIn 0.5s ease; /* Tambahkan animasi */
+    }
+    .popup.success {
+        border-left: 5px solid green;
+    }
+    .popup.error {
+        border-left: 5px solid red;
+    }
+    .popup .icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+    .overlay {
+    display: none; /* Sembunyikan overlay secara default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang hitam transparan */
+    z-index: 999; /* Pastikan overlay di bawah pop-up */
+}
   </style>
 </head>
 <body>
     <div class="content-wrapper">
-        <div class="container mt-5">
+        <div class="container ms-5 mt-5">
             <div class="section-header">
-                <h1>Data Table Master</h1>
+                <h1>Data Table Master - Effective</h1>
             </div>
-
+            <div class="overlay" id="overlay">
+            <div id="messagePopup" class="popup">
+                <div id="popupIcon" class="icon"></div>
+                <div id="popupMessage"></div>
+                <button id="closePopup" class="btn btn-secondary mt-3">Close</button>
+            </div>
+            </div>
             <!-- Button Section -->
             <div class="d-flex justify-content-between mb-3">
                 <a data-bs-toggle="modal" data-bs-target="#importModal" class="btn btn-success">
                     <i class="fas fa-file-import"></i> Import
                 </a>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#executeModal">
+                <button type="button" class="btn btn-warning me-5" data-bs-toggle="modal" data-bs-target="#executeModal">
                     <i class="fas fa-play"></i> Execute
                 </button>
             </div>
+
 
             <!-- Data Table -->
             <div class="card">
@@ -124,16 +179,16 @@
                         <tbody>
                             @foreach($tblmaster as $item)
                             <tr>
-                                <td>{{ $item->no_acc }}</td>
-                                <td>{{ $item->no_branch }}</td>
+                                <td>{{ number_format($item->no_acc, 0, '', '') }}</td>
+                                <td>{{ number_format($item->no_branch, 0, '', '') }}</td>
                                 <td>{{ $item->deb_name }}</td>
                                 <td>{{ $item->status }}</td>
                                 <td>{{ $item->ln_type }}</td>
                                 <td>{{ $item->org_date }}</td>
-                                <td>{{ $item->org_date_dt }}</td>
-                                <td>{{ $item->term }}</td>
+                                <td>{{ $item->org_date_dt ? date('d-m-Y', strtotime($item->org_date_dt)) : '' }}</td>
+                                <td>{{ number_format($item->term, 0, '', '') }}</td>
                                 <td>{{ $item->mtr_date }}</td>
-                                <td>{{ $item->mtr_date_dt }}</td>
+                                <td>{{ $item->mtr_date_dt ? date('d-m-Y', strtotime($item->mtr_date_dt)) : '' }}</td>
                                 <td>{{ number_format($item->org_bal, 2) }}</td>
                                 <td>{{ number_format($item->rate, 14) }}</td>
                                 <td>{{ number_format($item->cbal, 2) }}</td>
@@ -141,22 +196,22 @@
                                 <td>{{ number_format($item->bilprn, 2) }}</td>
                                 <td>{{ number_format($item->pmtamt, 2) }}</td>
                                 <td>{{ $item->lrebd }}</td>
-                                <td>{{ $item->lrebd_dt }}</td>
+                                <td>{{ $item->lrebd_dt ? date('d-m-Y', strtotime($item->lrebd_dt)) : '' }}</td>
                                 <td>{{ $item->nrebd }}</td>
-                                <td>{{ $item->nrebd_dt }}</td>
-                                <td>{{ $item->ln_grp }}</td>
+                                <td>{{ $item->nrebd_dt ? date('d-m-Y', strtotime($item->nrebd_dt)) : '' }}</td>
+                                <td>{{ number_format($item->ln_grp, 0, '', '') }}</td>
                                 <td>{{ $item->group }}</td>
                                 <td>{{ number_format($item->bilint, 2) }}</td>
-                                <td>{{ number_format($item->bisifa, 2) }}</td>
-                                <td>{{ number_format($item->birest, 2) }}</td>
+                                <td>{{ number_format($item->bisifa, 0) }}</td>
+                                <td>{{ $item->birest }}</td>
                                 <td>{{ $item->freldt }}</td>
-                                <td>{{ $item->freldt_dt }}</td>
+                                <td>{{ $item->freldt_dt ? date('d-m-Y', strtotime($item->freldt_dt)) : '' }}</td>
                                 <td>{{ $item->resdt }}</td>
-                                <td>{{ $item->resdt_dt }}</td>
+                                <td>{{ $item->resdt_dt ? date('d-m-Y', strtotime($item->resdt_dt)) : '' }}</td>
                                 <td>{{ $item->restdt }}</td>
-                                <td>{{ $item->restdt_dt }}</td>
-                                <td>{{ number_format($item->prov, 2) }}</td>
-                                <td>{{ number_format($item->trxcost, 2) }}</td>
+                                <td>{{ $item->restdt_dt ? date('d-m-Y', strtotime($item->restdt_dt)) : '' }}</td>
+                                <td>{{ $item->prov ? number_format((float)trim($item->prov, '$'), 5) : '0.00' }}</td>
+                                <td>{{ $item->trxcost ? number_format((float)trim($item->trxcost, '$'), 2) : '0.00' }}</td>
                                 <td>{{ $item->gol }}</td>
                             </tr>
                             @endforeach
@@ -166,9 +221,30 @@
             </div>
 
             <!-- Empty State -->
-            @if(empty($tblmaster))
+            @if($tblmaster->isEmpty())
             <div class="alert alert-warning text-center mt-3">Data not found</div>
             @endif
+
+       <!-- Pagination Links -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+
+                {{-- Showing {{ $tblmaster->firstItem() }} to {{ $tblmaster->lastItem() }} of {{ $tblmaster->total() }} entries --}}
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="me-2 d-flex align-items-center">
+
+                </div>
+                {{ $tblmaster->links() }} <!-- Menampilkan pagination -->
+                <label for="per_page" class="form-label mb-0" style="font-size: 0.8rem; margin-right: 5px;">Show</label>
+                <select id="per_page" class="form-select form-select-sm" onchange="changePerPage()" style="width: auto;">
+                    <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
+                    <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                    <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                    <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                    <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+                </select>
+            </div>
         </div>
 
         <!-- Import Modal -->
@@ -176,49 +252,59 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="importModalLabel">Import Status</h5>
+                        <h5 class="modal-title" id="importModalLabel">Import Data</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <!-- Add content -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                    <form action="{{ route('effective.tblmaster.import') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="uploadFile" class="form-label">Choose File</label>
+                                <input type="file"
+                                       class="form-control @error('uploadFile') is-invalid @enderror"
+                                       id="uploadFile"
+                                       name="uploadFile"
+                                       accept=".xlsx,.csv"
+                                       required>
+                                @error('uploadFile')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
 
         <!-- Execute Modal -->
         <div class="modal fade" id="executeModal" tabindex="-1" aria-labelledby="executeModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="executeModalLabel">Execute Stored Procedure</h5>
+                        <h5 class="modal-title" id="executeModalLabel">Execute Function</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('execute.stored.procedure') }}" method="POST">
+                    <form action="{{ route('effective.tblmaster.execute-procedure') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="bulan" class="form-label">Bulan:</label>
-                                <input type="number" name="bulan" id="bulan" class="form-control" required>
+                                <input type="number" name="bulan" id="bulan" class="form-control" min="1" max="12" required>
                             </div>
                             <div class="mb-3">
                                 <label for="tahun" class="form-label">Tahun:</label>
-                                <input type="number" name="tahun" id="tahun" class="form-control" required>
+                                <input type="number" name="tahun" id="tahun" class="form-control" min="2000" required>
                             </div>
                             <div class="mb-3">
                                 <label for="no_acc" class="form-label">Nomor Akun:</label>
                                 <input type="text" name="no_acc" id="no_acc" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="pilihan" class="form-label">Pilihan (365/360):</label>
-                                <select name="pilihan" id="pilihan" class="form-select" required>
-                                    <option value="">Pilih pilihan</option>
-                                    <option value="365">365</option>
-                                    <option value="360">360</option>
-                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -229,21 +315,47 @@
                 </div>
             </div>
         </div>
+        <!-- (Tetap sama seperti sebelumnya) -->
 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      $(document).ready(function() {
-        @if(session('success'))
-          $('#notificationMessage').text("{{ session('success') }}");
-          $('#notificationModal').modal('show');
-        @elseif(session('error'))
-          $('#notificationMessage').text("{{ session('error') }}");
-          $('#notificationModal').modal('show');
-        @endif
-      });
+        $(document).ready(function() {
+    @if(session('status'))
+        $('#popupIcon').html('<i class="fas fa-check-circle" style="color: green;"></i>'); // Ikon ceklis
+        $('#popupMessage').text("{{ session('status') }}");
+        $('#overlay').show(); // Tampilkan overlay
+        $('#messagePopup').css({ "display": "block", "opacity": 0 }); // Mulai dengan opacity 0
+        setTimeout(function() {
+            $('#messagePopup').css("opacity", 1); // Fade in
+        }, 10); // Delay sedikit untuk efek fade
+    @elseif(session('error'))
+        $('#popupIcon').html('<i class="fas fa-times-circle" style="color: red;"></i>'); // Ikon silang
+        $('#popupMessage').text("{{ session('error') }}");
+        $('#overlay').show(); // Tampilkan overlay
+        $('#messagePopup').css({ "display": "block", "opacity": 0 }); // Mulai dengan opacity 0
+        setTimeout(function() {
+            $('#messagePopup').css("opacity", 1); // Fade in
+        }, 10); // Delay sedikit untuk efek fade
+    @endif
+
+    // Close popup button
+    $('#closePopup, #overlay').click(function() {
+        $('#messagePopup').css("opacity", 0); // Fade out
+        setTimeout(function() {
+            $('#messagePopup').hide(); // Sembunyikan popup setelah fade out
+            $('#overlay').hide(); // Sembunyikan overlay
+        }, 500); // Delay sesuai durasi animasi
+        $('#messagePopup').removeClass('success error'); // Reset class
+    });
+});
+
+function changePerPage() {
+        const perPage = document.getElementById('per_page').value;
+        window.location.href = `?per_page=${perPage}`; // Redirect dengan parameter per_page
+    }
     </script>
 </body>
 </html>

@@ -9,11 +9,7 @@
         </p>
     </header>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
-
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -47,7 +43,26 @@
             @endif
         </div>
 
-        <div class="flex items-center gap-4">
+        <!-- Foto Profile Section -->
+        <!-- Foto Profile Section -->
+<!-- Foto Profile Section -->
+<!-- Foto Profile Section -->
+<div>
+    <x-input-label for="photo" :value="__('Profile Photo')" />
+    @if ($user->profile_photo_path)
+        <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="Profile Photo" class="w-20 h-20 rounded-full mt-2">
+    @endif
+    <input type="file" name="photo" id="photo" class="mt-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none" />
+
+    <!-- Menampilkan pesan error jika ada -->
+    <x-input-error class="mt-2 text-red-500" :messages="$errors->get('photo')" /> <!-- Pesan error untuk foto -->
+
+    <p class="mt-2 text-sm text-gray-600">{{ __('Maksimal ukuran gambar adalah 2 MB.') }}</p> <!-- Informasi ukuran maksimal -->
+</div>
+
+
+
+        <div class="flex items-center gap-4 mt-6">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')

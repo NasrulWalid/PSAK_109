@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
+        font-size: 12px;
       background-color: #f4f7fc;
       display: flex;
       justify-content: center; /* Center horizontally */
@@ -20,6 +21,7 @@
       margin-bottom: 30px;
     }
     h1 {
+        font-size: 25px;
       font-weight: bold;
       color: #007bff;
     }
@@ -61,19 +63,26 @@
 </head>
 <body>
     <div class="content-wrapper">
-        <div class="container mt-5">
+        <div class="container ms-5 mt-5">
             <div class="section-header">
                 <h1>Data Table Master</h1>
             </div>
 
             <!-- Button Section -->
             <div class="d-flex justify-content-between mb-3">
-                <a data-bs-toggle="modal" data-bs-target="#importModal" class="btn btn-success">
-                    <i class="fas fa-file-import"></i> Import
-                </a>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#executeModal">
-                    <i class="fas fa-play"></i> Execute
-                </button>
+                <div>
+                    <button type="button" class="btn btn-success btn-icon-split" data-bs-toggle="modal" data-bs-target="#importModal">
+
+                            <i class="fas fa-file-import"></i> Import
+
+                    </button>
+
+                    <button type="button" class="btn btn-warning btn-icon-split" data-bs-toggle="modal" data-bs-target="#executeModal">
+
+                            <i class="fas fa-play"></i> Execute
+
+                    </button>
+                </div>
             </div>
 
             <!-- Data Table -->
@@ -169,6 +178,7 @@
             @if(empty($tblmaster))
             <div class="alert alert-warning text-center mt-3">Data not found</div>
             @endif
+
         </div>
 
         <!-- Import Modal -->

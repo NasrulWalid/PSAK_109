@@ -1,3 +1,7 @@
+<head>
+    <!-- Menambahkan Judul di Tab Browser -->
+    <title>Register Akun PSAK 109</title>
+</head>
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf

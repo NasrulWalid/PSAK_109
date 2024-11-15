@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Psak</title>
+    <title>PSAK 109</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -61,8 +61,8 @@
                         <div class="d-flex border-end border-primary pe-3">
                             <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-instagram"></i></a>
-                            <a class="btn p-0 text-primary me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn p-0 text-primary me-3" href="https://www.instagram.com/pramatech_adimitra_solusi?igsh=MWhwcHVpbjhtcnFiMg==" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a class="btn p-0 text-primary me-0" href="https://www.linkedin.com/company/pt-pramatech-adimitra-solusi/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
@@ -75,21 +75,21 @@
     <div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a href="{{ url('landing') }}" class="navbar-brand p-0">
-                    <h1 class="text-primary mb-0">
-                        <img src="{{ asset('img/logo.png') }}" alt="Logo" style="height: 45px; margin-right: 1px;">
-                        </i> PSAK71 </h1>
-                </a>
+<!-- Brand Logo -->
+<a href="{{ url('/') }}" class="brand-link me-3" style="text-decoration: none">
+    <x-application-logo />
+</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-0 mx-lg-auto">
-                        <a href="{{ url('landing') }}" class="nav-item nav-link active">Beranda</a>
-                        <a href="{{ route('under') }}" class="nav-item nav-link">Tentang</a>
-                        <a href="{{ route('under') }}" class="nav-item nav-link">Artikel</a>
-                        <a href="{{ route('under') }}" class="nav-item nav-link">Kontak</a>
-                        <div class="nav-btn px-3">
+                        <a href="{{ url('/') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Beranda</a>
+                        <a href="{{ url('/tentang') }}" class="nav-item nav-link {{ Request::is('tentang') ? 'active' : '' }}">Tentang</a>
+                        <a href="{{ url('/artikel') }}" class="nav-item nav-link {{ Request::is('artikel') ? 'active' : '' }}">Artikel</a>
+                        <a href="{{ url('/kontak') }}" class="nav-item nav-link {{ Request::is('kontak') ? 'active' : '' }}">Kontak</a>
+                            <div class="nav-btn px-3">
                             <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
                             <a href="{{ url('login') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> Login</a>
                             <a href="{{ url('register') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> Register</a>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="d-none d-xl-flex flex-shrink-0 ps-4">
-                    <a href="#" class="btn btn-light btn-lg-square rounded-circle position-relative wow tada" data-wow-delay=".9s">
+                    <a href="https://wa.me/628561512634" class="btn btn-light btn-lg-square rounded-circle position-relative wow tada" data-wow-delay=".9s" target="_blank">
                         <i class="fa fa-phone-alt fa-2x"></i>
                         <div class="position-absolute" style="top: 7px; right: 12px;">
                             <span><i class="fa fa-comment-dots text-secondary"></i></span>
@@ -105,9 +105,10 @@
                     </a>
                     <div class="d-flex flex-column ms-3">
                         <span>Hubungi Kami</span>
-                        <a href="tel:+ 0123 456 7890"><span class="text-dark">+62 856 151 2634</span></a>
+                        <a href="https://wa.me/628561512634" target="_blank"><span class="text-dark">+62 856 1512 634</span></a>
                     </div>
                 </div>
+
             </nav>
         </div>
     </div>

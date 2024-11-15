@@ -8,23 +8,28 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-                <div class="image">
-                    <img src="{{ asset('lte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info ms-2" style="max-width: 150px; white-space: nowrap;">
-                    <span class="d-block" style="font-size: 16px; color: rgb(255, 255, 255); word-wrap: break-word;">{{ Auth::user()->name }}</span>
-                    <span class="text-muted" style="color: rgb(255, 255, 255); font-size: 16px;">
-                        {{ Auth::user()->role }}
-                        <span class="online-status ms-2"></span>
-                    </span>
-                </div>
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <div class="image">
+                @if (Auth::user()->upload_foto)
+                    <img src="{{ asset('storage/' . Auth::user()->upload_foto) }}" class="img-circle elevation-2" alt="User Image" style="width: 60px; height: 60px;">
+                @else
+                    <img src="{{ asset('lte/dist/img/images.jpg') }}" class="img-circle elevation-2" alt="Default User Image" style="width: 60px; height: 60px;">
+                @endif
             </div>
-            <a href="{{ route('profile.edit') }}" class="gear-icon">
-                <i class="fas fa-cog"></i>
-            </a>
+
+            <div class="info ms-2" style="max-width: 150px; white-space: nowrap;">
+                <span class="d-block" style="font-size: 16px; color: rgb(255, 255, 255); word-wrap: break-word;">{{ Auth::user()->name }}</span>
+                <span class="text-muted" style="color: rgb(255, 255, 255); font-size: 16px;">
+                    {{ Auth::user()->role }}
+                    <span class="online-status ms-2"></span>
+                </span>
+            </div>
         </div>
+        <a href="{{ route('profile.edit') }}" class="gear-icon">
+            <i class="fas fa-cog"></i>
+        </a>
+    </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -37,12 +42,12 @@
                     </a>
                 </li>
 
-                <li class="nav-item active">
+                {{-- <li class="nav-item active">
                     <a class="nav-link" href="{{ route('pricing.show') }}">
                         <i class="bi bi-cash"></i>
                         <span class="d-none d-md-inline" style="font-size: 16px;">Map Bisnis</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <hr class="sidebar-divider">
 
@@ -61,37 +66,90 @@
                         <!-- Submenu items -->
                         <li class="nav-item">
                             <a href="#" class="nav-link d-flex align-items-center">
-                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Accrual Interest</p>
+                                <i class="fas fa-signal"></i>
+                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Effective</p>
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('report-acc-eff.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Effective</p>
+                                        <p class="text-start" style="font-size: 16px;">Report Accrual Interest</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('report-acc-si.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Simple Interest</p>
+                                    <a href="{{ route('report-amorcost-eff.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Cost</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-amorinitcost-eff.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Initial Cost</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-amorinitfee-eff.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Initial Fee</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-expectcfeff-eff.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Expective Cashflow</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-journal-eff.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Journal</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-outstanding-eff.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Outstanding</p>
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
                         <!-- Report Amortised Cost Dropdown -->
                         <li class="nav-item">
                             <a href="#" class="nav-link d-flex align-items-center">
-                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Amortised Cost</p>
+                                <i class="fas fa-money-bill-wave"></i>
+                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Simple Interest</p>
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('report-amorcost-eff.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Effective</p>
+                                    <a href="{{ route('report-acc-si.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Accrual Interest</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('report-amorcost-si.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Simple Interest</p>
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Cost</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-amorinitcost-si.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Initial Cost</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-amorinitfee-si.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Initial Fee</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-expectcf-si.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Expective Cashflow</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-journal-si.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Journal</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('report-outstanding-si.index') }}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Outstanding</p>
                                     </a>
                                 </li>
                             </ul>
@@ -99,61 +157,32 @@
                         <!-- Report Amortised Initial Cost Dropdown -->
                         <li class="nav-item">
                             <a href="#" class="nav-link d-flex align-items-center">
-                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Amortised Initial Cost</p>
+                                <i class="bi bi-shield-lock" style="font-size: 15px;"></i> <!-- Ikon untuk keamanan -->
+                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Securities</p>
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('report-amorinitcost-eff.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Effective</p>
+                                    <a href="{{route('report-calculated-accrual-coupon.index')}}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Calculated Accrual Coupon</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('report-amorinitcost-si.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Simple Interest</p>
+                                    <a href="{{route('report-amortised-cost.index')}}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Cost</p>
                                     </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Report Amortised Initial Fee Dropdown -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center">
-                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Amortised Initial Fee</p>
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('report-amorinitfee-eff.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Effective</p>
+                                    <a href="{{route('report-amortised-initial-disc.index')}}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Initial Disc</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('report-amorinitfee-si.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Simple Interest</p>
+                                    <a href="{{route('report-amortised-initial-prem.index')}}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Amortised Initial Prem</p>
+                                    </a>
+                                    <a href="{{route('report-expected-cashflow.index')}}" class="nav-link">
+                                        <p class="text-start" style="font-size: 16px;">Report Expected Cash Flow</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <!-- Report Expective Cashflow Dropdown -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center">
-                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Expective Cashflow</p>
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('report-expectcfeff-eff.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Effective</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('report-expectcf-si.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Simple Interest</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Report Interest Deffered Dropdown -->
+
+                        {{-- <!-- Report Interest Deffered Dropdown -->
                         <li class="nav-item">
                             <a href="#" class="nav-link d-flex align-items-center">
                                 <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Interest Deffered</p>
@@ -171,45 +200,8 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <!-- Report Journal Dropdown -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center">
-                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Journal</p>
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('report-journal-eff.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Effective</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('report-journal-si.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Simple Interest</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Report Outstanding Dropdown -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link d-flex align-items-center">
-                                <p class="ms-2 mb-0 text-start" style="white-space: nowrap; font-size: 16px;">Report Outstanding</p>
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('report-outstanding-eff.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Effective</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('report-outstanding-si.index') }}" class="nav-link">
-                                        <p class="text-start" style="font-size: 16px;">✦ Simple Interest</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </li>
 
@@ -231,7 +223,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('tblmaster.index') }}" class="nav-link d-flex align-items-center">
+                                    <a href="{{ route('simple-interest.tblmaster.index') }}" class="nav-link d-flex align-items-center">
                                         <p class="ms-2 mb-0 text-center" style="width: 30px; font-size: 16px;">✦</p>
                                         <p class="ms-3 mb-0 flex-grow-1 text-start" style="font-size: 16px;">Upload File tblmaster_tmpcorporate</p>
                                     </a>
@@ -251,7 +243,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('tblmaster.index') }}" class="nav-link d-flex align-items-center">
+                                    <a href="{{ route('effective.tblmaster.index') }}" class="nav-link d-flex align-items-center">
                                         <p class="ms-2 mb-0 text-center" style="width: 30px; font-size: 16px;">✦</p>
                                         <p class="ms-3 mb-0 flex-grow-1 text-start" style="font-size: 16px;">Upload File tblmaster_tmp</p>
                                     </a>
@@ -264,9 +256,11 @@
                 <hr class="sidebar-divider">
 
                 <!-- Administrator Options -->
-                <div class="sidebar-heading" style="color: white; margin-left:15px; margin-top:10px; font-size: 16px;">
-                    Options
-                </div>
+                    @if (Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin')
+                        <div class="sidebar-heading" style="color: white; margin-left:15px; margin-top:10px; font-size: 16px;">
+                            Options
+                        </div>
+                    @endif
 
                 <!-- Tampilkan menu User Management hanya jika pengguna adalah admin -->
                 @if (Auth::user()->role === 'admin')
@@ -329,6 +323,20 @@
     position: fixed; /* Sidebar tetap di tempat dan tidak bisa diperkecil */
     transition: none; /* Menghapus transisi */
 }
+ /* Padding untuk sub-menu agar menjorok ke depan */
+ .nav-treeview .nav-link {
+        padding-left: 30px; /* Tambahkan padding agar lebih menjorok */
+    }
+
+    /* Padding lebih besar untuk sub-menu tingkat kedua */
+    .nav-treeview .nav-treeview .nav-link {
+        padding-left: 50px; /* Tambahkan lebih banyak padding untuk level sub-menu kedua */
+    }
+
+    /* Aturan tambahan jika ada lebih banyak level */
+    .nav-treeview .nav-treeview .nav-treeview .nav-link {
+        padding-left: 70px;
+    }
     /* Jarak antara ikon dan teks */
     .nav-link i {
         margin-right: 10px; /* Tambahkan margin kanan pada ikon */

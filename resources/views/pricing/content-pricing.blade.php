@@ -215,14 +215,12 @@
                 <label for="bisnis_type">Tipe Bisnis:</label>
                 <select id="bisnis_type" name="bisnis_type" required>
                     <option value="">--Pilih Tipe Bisnis--</option>
-                    <option value="L001">SMALL AND MEDIUM ENTERPRISES</option>
-                    <option value="L002">KREDIT TANPA AGUNAN</option>
-                    <option value="L003">KREDIT PEMILIKAN MOBIL</option>
-                    <option value="L004">KREDIT PEMILIKAN RUMAH</option>
-                    <option value="L005">INSURANCE</option>
-                    <option value="L006">USAHA KECIL DAN MENENGAH</option>
-                    <option value="L007">KREDIT ANGSURAN BERJANGKA</option>
-                    <option value="L008">TRADE FINANCE</option>
+                    <option value="L001">KREDIT TANPA AGUNAN</option>
+                    <option value="L002">KREDIT PEMILIKAN MOBIL</option>
+                    <option value="L003">KREDIT PEMILIKAN RUMAH</option>
+                    <option value="L004">INSURANCE</option>
+                    <option value="L005">USAHA KECIL DAN MENENGAH</option>
+                    <option value="L006">KREDIT ANGSURAN BERJANGKA</option>
                 </select>
                 @error('bisnis_type')
                     <small class="text-danger">{{ $message }}</small>
@@ -232,7 +230,7 @@
 
 
                 <div id="modules-Bank" class="modul">
-                    <table>
+                    <table class="table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -260,11 +258,11 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $modul['nama_modul'] }}</td>
                             <td>
-                                <input type="radio" name="module_{{ $modul['modul_id'] }}" value="1" id="effective_{{ $modul['modul_id'] }}" onclick="updateInterestValue('{{ $modul['modul_id'] }}', 'effective')">
+                                <input type="checkbox" name="module_{{ $modul['modul_id'] }}" value="1" id="effective_{{ $modul['modul_id'] }}" onclick="updateInterestValue('{{ $modul['modul_id'] }}', 'effective')">
 
                             </td>
                             <td>
-                                <input type="radio" name="module_{{ $modul['modul_id'] }}" value="0" id="simple_interest_{{ $modul['modul_id'] }}" onclick="updateInterestValue('{{ $modul['modul_id'] }}', 'simple')">
+                                <input type="checkbox" name="module_{{ $modul['modul_id'] }}" value="0" id="simple_interest_{{ $modul['modul_id'] }}" onclick="updateInterestValue('{{ $modul['modul_id'] }}', 'simple')">
 
                             </td>
                         </tr>

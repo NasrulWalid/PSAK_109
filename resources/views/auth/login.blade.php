@@ -1,4 +1,9 @@
+<head>
+    <!-- Menambahkan Judul di Tab Browser -->
+    <title>Login PSAK 109</title>
+</head>
 <x-guest-layout>
+
     <!-- Alert Session Status -->
     @if (session('status'))
         <div class="mb-4 p-4 text-green-700 bg-green-100 border border-green-300 rounded-lg">
@@ -89,6 +94,7 @@
 </script>
 
 <style>
+
     /* Loader Overlay Styles */
     .loader-overlay {
         position: fixed;

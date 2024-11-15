@@ -13,6 +13,8 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
+use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -20,18 +22,23 @@ use Dompdf\Options;
 class simpleinterestController extends Controller
 {
     // Method untuk menampilkan semua data pinjaman korporat
-    public function index()
+    public function index(Request $request)
     {
-        $loans = report_simpleinterest::getCorporateLoans()->paginate(2);
+        $id_pt = Auth::user()->id_pt;
+         // Ambil jumlah item per halaman dari query string, default 10
+         $perPage = $request->input('per_page', 10);
+         // Ambil data dengan pagination
+         $loans = report_simpleinterest::fetchAll($id_pt, $perPage);
+        //  dd($loans);
         return view('report.interest_deffered.simple_interest.master', compact('loans'));
     }
 
     // Method untuk menampilkan detail pinjaman berdasarkan nomor akun
-    public function view($no_acc)
+    public function view($no_acc,$id_pt)
     {
         $no_acc = trim($no_acc);
-        $loan = report_simpleinterest::getLoanDetails($no_acc);
-        $reports = report_simpleinterest::getReportsByNoAcc($no_acc);
+        $loan = report_simpleinterest::getLoanDetails($no_acc,$id_pt);
+        $reports = report_simpleinterest::getReportsByNoAcc($no_acc,$id_pt);
 
         if (!$loan) {
             abort(404, 'Loan not found');
@@ -41,11 +48,11 @@ class simpleinterestController extends Controller
         return view('report.interest_deffered.simple_interest.view', compact('loan', 'reports'));
     }
 
-    public function exportExcel($no_acc)
+    public function exportExcel($no_acc, $id_pt)
     {
         // Ambil data loan dan reports
-        $loan = report_simpleinterest::getLoanDetails(trim($no_acc));
-        $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc));
+        $loan = report_simpleinterest::getLoanDetails(trim($no_acc), trim($id_pt));
+        $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc), trim($id_pt));
 
         // Cek apakah data loan dan reports ada
         if (!$loan || $reports->isEmpty()) {
@@ -172,11 +179,11 @@ class simpleinterestController extends Controller
         return response()->download($temp_file, $filename)->deleteFileAfterSend(true);
     }
     // Method untuk mengekspor data ke PDF
-    public function exportPdf($no_acc)
+    public function exportPdf($no_acc, $id_pt)
 {
     // Ambil data loan dan reports
-    $loan = report_simpleinterest::getLoanDetails(trim($no_acc));
-    $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc));
+    $loan = report_simpleinterest::getLoanDetails(trim($no_acc), trim($id_pt));
+    $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc), trim($id_pt));
 
     // Cek apakah data loan dan reports ada
     if (!$loan || $reports->isEmpty()) {
@@ -186,6 +193,8 @@ class simpleinterestController extends Controller
     // Buat spreadsheet baru
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
+    $sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+
 
     // Set informasi pinjaman
     $sheet->setCellValue('A3', 'No. Account');

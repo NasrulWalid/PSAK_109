@@ -13,6 +13,8 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
+use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -20,19 +22,24 @@ use Dompdf\Options;
 class simpleinterestController extends Controller
 {
     // Method untuk menampilkan semua data pinjaman korporat
-    public function index()
+    public function index(Request $request)
     {
-        $loans = report_simpleinterest::getCorporateLoans()->paginate(2);
+        $id_pt = Auth::user()->id_pt;
+    // Ambil jumlah item per halaman dari query string, default 10
+        $perPage = $request->input('per_page', 10);
+    // Ambil data dengan pagination
+    $loans = report_simpleinterest::fetchAll($id_pt, $perPage);
+// dd($loans);
         return view('report.accrual_interest.simple_interest.master', compact('loans'));
     }
 
     // Method untuk menampilkan detail pinjaman berdasarkan nomor akun
-    public function view($no_acc)
+    public function view($no_acc, $id_pt)
     {
+        // dd($no_acc, $id_pt); // Debugging parameter
         $no_acc = trim($no_acc);
-        $loan = report_simpleinterest::getLoanDetails($no_acc);
-        $reports = report_simpleinterest::getReportsByNoAcc($no_acc);
-
+        $loan = report_simpleinterest::getLoanDetails($no_acc, $id_pt);
+        $reports = report_simpleinterest::getReportsByNoAcc($no_acc, $id_pt);
         if (!$loan) {
             abort(404, 'Loan not found');
         }
@@ -41,11 +48,11 @@ class simpleinterestController extends Controller
         return view('report.accrual_interest.simple_interest.view', compact('loan', 'reports'));
     }
 
-    public function exportExcel($no_acc)
+    public function exportExcel($no_acc, $id_pt)
     {
         // Ambil data loan dan reports
-        $loan = report_simpleinterest::getLoanDetails(trim($no_acc));
-        $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc));
+        $loan = report_simpleinterest::getLoanDetails(trim($no_acc), trim($id_pt));
+        $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc), trim($id_pt));
 
         // Cek apakah data loan dan reports ada
         if (!$loan || $reports->isEmpty()) {
@@ -57,33 +64,31 @@ class simpleinterestController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         // Set informasi pinjaman
-        // Set informasi pinjaman
-        $sheet->setCellValue('A3', 'No. Account');
-        $sheet->getStyle('A3')->getFont()->setBold(true); // Set bold untuk No. Account
+        $sheet->setCellValue('A3', 'Account Number');
+        $sheet->getStyle('A3')->getFont()->setBold(true); // Set bold untuk  Account Number
         $sheet->setCellValue('B3', $loan->no_acc);
-        $sheet->setCellValue('A4', 'Debt or Name');
-        $sheet->getStyle('A4')->getFont()->setBold(true); // Set bold untuk Debtor Name
+        $sheet->setCellValue('A4', 'Debitor Name');
+        $sheet->getStyle('A4')->getFont()->setBold(true); // Set bold untuk Debitor Name
         $sheet->setCellValue('B4', $loan->deb_name);
-        $sheet->setCellValue('A5', 'Original Balance');
-        $sheet->getStyle('A5')->getFont()->setBold(true); // Set bold untuk Original Balance
+        $sheet->setCellValue('A5', 'Original Amount');
+        $sheet->getStyle('A5')->getFont()->setBold(true); // Set bold untuk Original Amount
         $sheet->setCellValue('B5', number_format($loan->org_bal, 2));
-        $sheet->setCellValue('A6', 'Original Date');
-        $sheet->getStyle('A6')->getFont()->setBold(true); // Set bold untuk Original Date
-        $sheet->setCellValue('B6', date('Y-m-d', strtotime($loan->org_date)));
-        $sheet->setCellValue('A7', 'Term');
-        $sheet->getStyle('A7')->getFont()->setBold(true); // Set bold untuk Term
-        $sheet->setCellValue('B7', $loan->TERM);
-        $sheet->setCellValue('A8', 'Maturity Date');
-        $sheet->getStyle('A8')->getFont()->setBold(true); // Set bold untuk Maturity Date
-        $sheet->setCellValue('B8', date('Y-m-d', strtotime($loan->mtr_date)));
-        $sheet->setCellValue('B8', 'Interest Rate');
-        $sheet->getStyle('B8')->getFont()->setBold(true); // Set bol untuk  Interest Rate
-        $sheet->setCellValue('E7', 'Outstanding Amount');
-        $sheet->getStyle('E7')->getFont()->setBold(true); // Set bol untuk Outstanding Amount
-        $sheet->setCellValue('E8', 'EIR Convertion Calculated');
-        $sheet->getStyle('E8')->getFont()->setBold(true); // Set bol untuk EIR Convertion Calculated
-
-
+        $sheet->setCellValue('A6', 'Term');
+        $sheet->getStyle('A6')->getFont()->setBold(true); // Set bold untuk Term
+        $sheet->setCellValue('B6', $loan->TERM);
+        $sheet->setCellValue('A7', 'Interest Rate');
+        $sheet->getStyle('B7')->getFont()->setBold(true); // Set bol untuk  Interest Rate
+        $sheet->setCellValue('D3', 'Outstanding Amount');
+        $sheet->getStyle('D3')->getFont()->setBold(true); // Set bold untuk  Outstanding Amount
+        $sheet->setCellValue('E3', $loan->no_acc);
+        $sheet->setCellValue('D4', 'EIR Conversion Calculated');
+        $sheet->getStyle('D4')->getFont()->setBold(true); // Set bold untuk EIR Conversion Calculated
+        $sheet->setCellValue('E4', $loan->deb_name);
+        $sheet->setCellValue('D5', 'Original Loan Date');
+        $sheet->getStyle('D5')->getFont()->setBold(true); // Set bold untuk Original Loan Date
+        $sheet->setCellValue('E5', number_format($loan->org_bal, 2));
+        $sheet->setCellValue('D6', 'Maturity Date');
+        $sheet->getStyle('E6')->getFont()->setBold(true); // Set bold untuk Maturity Date
 
         // Set judul tabel laporan
         $sheet->setCellValue('A10', 'Accrual Interest Report - Report Details');
@@ -165,12 +170,15 @@ class simpleinterestController extends Controller
         // Kembalikan response Excel
         return response()->download($temp_file, $filename)->deleteFileAfterSend(true);
     }
+
+
+
     // Method untuk mengekspor data ke PDF
-    public function exportPdf($no_acc)
+    public function exportPdf($no_acc, $id_pt)
 {
     // Ambil data loan dan reports
-    $loan = report_simpleinterest::getLoanDetails(trim($no_acc));
-    $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc));
+    $loan = report_simpleinterest::getLoanDetails(trim($no_acc), trim($id_pt));
+    $reports = report_simpleinterest::getReportsByNoAcc(trim($no_acc), trim($id_pt));
 
     // Cek apakah data loan dan reports ada
     if (!$loan || $reports->isEmpty()) {
@@ -180,32 +188,36 @@ class simpleinterestController extends Controller
     // Buat spreadsheet baru
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
+    $sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+
 
     // Set informasi pinjaman
-    $sheet->setCellValue('A3', 'Number Account');
-    $sheet->getStyle('A3')->getFont()->setBold(true);
-    $sheet->setCellValue('B3', $loan->no_acc);
-    $sheet->setCellValue('A4', 'Debitor Name');
-    $sheet->getStyle('A4')->getFont()->setBold(true);
-    $sheet->setCellValue('B4', $loan->deb_name);
-    $sheet->setCellValue('A5', 'Original Amount');
-    $sheet->getStyle('A5')->getFont()->setBold(true);
-    $sheet->setCellValue('B5', number_format($loan->org_bal, 2));
-    $sheet->setCellValue('A6', 'Original Loan Date');
-    $sheet->getStyle('A6')->getFont()->setBold(true);
-    $sheet->setCellValue('B6', date('Y-m-d', strtotime($loan->org_date)));
-    $sheet->setCellValue('A7', 'Term');
-    $sheet->getStyle('A7')->getFont()->setBold(true);
-    $sheet->setCellValue('B7', $loan->TERM);
-    $sheet->setCellValue('A8', 'Maturity Date');
-    $sheet->getStyle('A8')->getFont()->setBold(true);
-    $sheet->setCellValue('B8', date('Y-m-d', strtotime($loan->mtr_date)));
-    $sheet->setCellValue('B8', 'Interest Rate');
-    $sheet->getStyle('B8')->getFont()->setBold(true);
-    $sheet->setCellValue('E3', 'Outstanding Interest');
-    $sheet->getStyle('E3')->getFont()->setBold(true);
-    $sheet->setCellValue('E4', 'EIR Convertion Calculated');
-    $sheet->getStyle('E4')->getFont()->setBold(true);
+    $sheet->setCellValue('A3', 'Account Number');
+        $sheet->getStyle('A3')->getFont()->setBold(true); // Set bold untuk  Account Number
+        $sheet->setCellValue('B3', $loan->no_acc);
+        $sheet->setCellValue('A4', 'Debitor Name');
+        $sheet->getStyle('A4')->getFont()->setBold(true); // Set bold untuk Debitor Name
+        $sheet->setCellValue('B4', $loan->deb_name);
+        $sheet->setCellValue('A5', 'Original Amount');
+        $sheet->getStyle('A5')->getFont()->setBold(true); // Set bold untuk Original Amount
+        $sheet->setCellValue('B5', number_format($loan->org_bal, 2));
+        $sheet->setCellValue('A6', 'Term');
+        $sheet->getStyle('A6')->getFont()->setBold(true); // Set bold untuk Term
+        $sheet->setCellValue('B6', $loan->TERM);
+        $sheet->setCellValue('A7', 'Interest Rate');
+        $sheet->getStyle('B7')->getFont()->setBold(true); // Set bol untuk  Interest Rate
+        $sheet->setCellValue('D3', 'Outstanding Amount');
+        $sheet->getStyle('D3')->getFont()->setBold(true); // Set bold untuk  Outstanding Amount
+        $sheet->setCellValue('E3', $loan->no_acc);
+        $sheet->setCellValue('D4', 'EIR Conversion Calculated');
+        $sheet->getStyle('D4')->getFont()->setBold(true); // Set bold untuk EIR Conversion Calculated
+        $sheet->setCellValue('E4', $loan->deb_name);
+        $sheet->setCellValue('D5', 'Original Loan Date');
+        $sheet->getStyle('D5')->getFont()->setBold(true); // Set bold untuk Original Loan Date
+        $sheet->setCellValue('E5', number_format($loan->org_bal, 2));
+        $sheet->setCellValue('D6', 'Maturity Date');
+        $sheet->getStyle('E6')->getFont()->setBold(true); // Set bold untuk Maturity Date
+
 
 
     // Set judul tabel laporan

@@ -15,9 +15,9 @@
                                 <th style="width: 20%;">Account Number</th>
                                 <th style="width: 25%;">Debitor Name</th>
                                 <th style="width: 20%;">Original Amount</th>
-                                <th style="width: 15%;">Original Loan Date</th>
+                                <th style="width: 15%;">Original Date</th>
                                 <th style="width: 10%;">Term</th>
-                                <th style="width: 20%;">Maturity Loan Date</th> <!-- Perlebar kolom Maturity Date -->
+                                <th style="width: 20%;">Maturity Date</th> <!-- Perlebar kolom Maturity Date -->
                                 <th style="width: 20%;">Interest Rate</th>
                                 <th style="width: 20%;">Transaction Cost</th>
                                 <th style="width: 25%;">Outstanding Amount Initial Cost</th>
@@ -31,15 +31,15 @@
                                     <td>{{ $loan->no_acc }}</td>
                                     <td>{{ $loan->deb_name }}</td>
                                     <td>{{ number_format($loan->org_bal, 2) }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($loan->org_date)) }}</td>
-                                    <td>{{ $loan->TERM }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($loan->mtr_date)) }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($loan->org_date)) }}</td>
+                                    <td>{{ $loan->term }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($loan->mtr_date)) }}</td>
                                     <td>{{ $loan->interest}}%</td>
                                     <td>{{'null'}}</td>
                                     <td>{{'null'}}</td>
                                     <td>{{ $loan->eircalc_cost }}%</td>
                                     <td>
-                                        <a href="{{ route('report-amorinitcost-si.view', $loan->no_acc) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('report-amorinitcost-si.view', ['no_acc' => $loan->no_acc, 'id_pt' => $loan->id_pt]) }}" class="btn btn-sm btn-info">
                                             <i class="fas fa-eye" style="margin-right: 5px;"></i> View
                                         </a>
                                     </td>
@@ -47,33 +47,46 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <!-- Menambahkan row untuk pagination dan showing -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 text-left">
-            <div class="showing-entries">
-                Showing
-                {{$loans->firstItem()}}
-                to
-                {{$loans->lastItem()}}
-                of
-                {{$loans->total()}}
-                entries
-            </div>
-        </div>
-        <div class="col-md-6">
-            <!-- Menambahkan pagination dengan d-flex justify-content-end untuk menekan ke kanan -->
-            <div class="d-flex justify-content-end">
-                {{ $loans->onEachSide(1)->links('pagination::bootstrap-4') }}
-            </div>
-        </div>
-    </div>
-</div>
                 </div>
             </section>
+              <!-- Pagination Links -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="showing-entries">
+                    Showing
+                    {{$loans->firstItem()}}
+                    to
+                    {{$loans->lastItem()}}
+                    of
+                    {{$loans->total()}}
+                    Results
+                </div>
+                <div class="d-flex align-items-center">
+                    {{ $loans->appends(['per_page' => request('per_page')])->links('pagination::bootstrap-4') }}
+                    <label for="per_page" class="form-label mb-0" style="font-size: 0.8rem; margin-right: 15px; margin-left:30px;">Show</label>
+                    <select id="per_page" class="form-select form-select-sm" onchange="changePerPage()" style="width: auto;">
+                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                        <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                        <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
+<!-- JavaScript -->
+<script>
+    function changePerPage() {
+        const perPage = document.getElementById('per_page').value;
+        const url = new URL(window.location.href);
+        url.searchParams.set('per_page', perPage);
+        url.searchParams.delete('page'); // Hapus parameter page saat mengganti per_page
+        window.location.href = url;
+    }
+</script>
+
 
 <!-- Custom CSS -->
 <style>
@@ -82,18 +95,46 @@
         background-color: #f4f7fc;
         font-family: 'Arial', sans-serif;
     }
+    /* STYLE PAGINATION */
     .showing-entries {
-        font-size: 12px; /* Ganti ukuran font sesuai keinginan, misalnya 12px, 14px, dll */
-        margin-top: 20px;
-    }
-    .pagination {
-        margin-top: 20px;
+        font-size: 14px;
     }
     .pagination .page-item.active .page-link {
-    background-color: #8bc3ff; /* Warna latar halaman aktif */
-    border-color: #007bff; /* Warna border halaman aktif */
-    color: white; /* Warna teks halaman aktif */
-}
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+    #per_page {
+    width: 80px; /* Lebar default */
+    min-width: 100px; /* Lebar minimum */
+    max-width: 150px; /* Lebar maksimum */
+    transition: all 0.3s ease; /* Efek transisi halus */
+    border-radius: 5px; /* Sudut membulat */
+    padding: 5px; /* Jarak dalam */
+    cursor: pointer; /* Gaya kursor */
+    }
+
+    /* Tambahkan efek saat dropdown dibuka */
+    #per_page:focus {
+        outline: none; /* Hilangkan outline default */
+        box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Shadow saat aktif */
+        border-color: #007bff; /* Warna border aktif */
+    }
+
+    #per_page:focus {
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        background-color: #f0f8ff;
+        transform: scale(1.05);
+    }
+
+    #per_page option {
+        transition: background-color 0.2s ease;
+    }
+
+    #per_page option:hover {
+        background-color: #73b9ff;
+    }
+    /* STYLE PAGINATION */
     .main-content {
         margin-left: 20px; /* Diperbarui untuk menghapus margin kiri */
         width: 100%; /* Diperbarui lebar */

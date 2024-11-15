@@ -13,6 +13,8 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
+use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -20,32 +22,47 @@ use Dompdf\Options;
 class effectiveController extends Controller
 {
     // Method untuk menampilkan semua data pinjaman korporat
-    public function index()
+    public function index(Request $request)
     {
-        $loans = report_effective::getCorporateLoans()->paginate(2);
+        $id_pt = Auth::user()->id_pt;
+        // Ambil jumlah item per halaman dari query string, default 10
+        $perPage = $request->input('per_page', 10);
+        // Ambil data dengan pagination
+        $loans = report_effective::fetchAll($id_pt, $perPage);
+         // Tambahkan debug untuk loans
+    //  dd($loans);
         return view('report.accrual_interest.effective.master', compact('loans'));
     }
-
     // Method untuk menampilkan detail pinjaman berdasarkan nomor akun
-    public function view($no_acc)
-    {
-        $no_acc = trim($no_acc);
-        $loan = report_effective::getLoanDetails($no_acc);
-        $reports = report_effective::getReportsByNoAcc($no_acc);
+    public function view($no_acc, $id_pt)
+{
+    $no_acc = trim($no_acc);
 
-        if (!$loan) {
-            abort(404, 'Loan not found');
-        }
+    $loan = report_effective::getLoanDetails($no_acc, $id_pt);
+    $master = report_effective::getMasterDataByNoAcc($no_acc, $id_pt);
+    $reports = report_effective::getReportsByNoAcc($no_acc, $id_pt);
 
 
-        return view('report.accrual_interest.effective.view', compact('loan', 'reports'));
+    // Debugging: Jika salah satu data tidak ditemukan, tampilkan pesan atau log
+    if (!$loan) {
+        return response()->json(['error' => 'Data loan tidak ditemukan'], 404);
+    }
+    if (!$master) {
+        return response()->json(['error' => 'Data master tidak ditemukan'], 404);
+    }
+    if ($reports->isEmpty()) {
+        return response()->json(['error' => 'Data laporan tidak ditemukan'], 404);
     }
 
-    public function exportExcel($no_acc)
+    return view('report.accrual_interest.effective.view', compact('loan', 'reports', 'master'));
+}
+
+    public function exportExcel($no_acc,$id_pt)
     {
         // Ambil data loan dan reports
-        $loan = report_effective::getLoanDetails(trim($no_acc));
-        $reports = report_effective::getReportsByNoAcc(trim($no_acc));
+
+        $loan = report_effective::getLoanDetails($no_acc,$id_pt);
+        $reports = report_effective::getReportsByNoAcc($no_acc,$id_pt);
 
         // Cek apakah data loan dan reports ada
         if (!$loan || $reports->isEmpty()) {
@@ -79,8 +96,8 @@ class effectiveController extends Controller
 
 
         // Set judul tabel laporan
-        $sheet->setCellValue('A10', 'Accrual Interest Report - Report Details');
-        $sheet->mergeCells('A10:J10'); // Menggabungkan sel untuk judul tabel
+        $sheet->setCellValue('A10', 'Report Accrual Interest - Effective');
+        $sheet->mergeCells('A10:K10'); // Menggabungkan sel untuk judul tabel
         $sheet->getStyle('A10')->getFont()->setBold(true)->setSize(14);
         $sheet->getStyle('A10')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('A10')->getFill()->setFillType(Fill::FILL_SOLID);
@@ -88,7 +105,19 @@ class effectiveController extends Controller
         $sheet->getStyle('A10')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
 
         // Set judul kolom tabel
-        $headers = ['Bulanke', 'Tgl Angsuran', 'Hari Bunga', 'PMT Amt', 'Penarikan', 'Pengembalian', 'Bunga', 'Balance', 'Time Gap', 'Outs Amt Conv'];
+        $headers = [
+            'Month',
+            'Transaction Date',
+            'Days Interest',
+            'Payment Amount',
+            'Withdrawal',
+            'Reimbursement',
+            'Accrued Interest',
+            'Interest Payment',
+            'Time Gap',
+            'Outstanding Amount',
+            'Cummulative Time Gap'
+        ];
         $columnIndex = 'A';
         foreach ($headers as $header) {
             $sheet->setCellValue($columnIndex . '12', $header);
@@ -100,27 +129,33 @@ class effectiveController extends Controller
             $columnIndex++;
         }
 
-        // Mengisi data laporan ke dalam tabel
-        $row = 13; // Mulai dari baris 13 untuk data laporan
+        $row = 13;
+        $cumulativeTimeGap = 0;
         foreach ($reports as $report) {
+            $cumulativeTimeGap += floatval($report->timegap);
+
             $sheet->setCellValue('A' . $row, $report->bulanke);
-            $sheet->setCellValue('B' . $row, date('Y-m-d', strtotime($report->tglangsuran)));
-            $sheet->setCellValue('C' . $row, $report->haribunga ?? 0);
+            $sheet->setCellValue('B' . $row, date('d-m-Y', strtotime($report->tglangsuran)));
+            $sheet->setCellValue('C' . $row, $report->bunga);
             $sheet->setCellValue('D' . $row, number_format($report->pmtamt, 2));
-            $sheet->setCellValue('E' . $row, number_format($report->penarikan?? 0));
-            $sheet->setCellValue('F' . $row, number_format($report->pengembalian?? 0));
-            $sheet->setCellValue('G' . $row, number_format($report->bunga, 2));
-            $sheet->setCellValue('H' . $row, number_format($report->balance, 2));
+            $sheet->setCellValue('E' . $row, number_format($report->pokok, 2));
+            $sheet->setCellValue('F' . $row, number_format(0, 2));
+            $sheet->setCellValue('G' . $row, number_format($report->balance, 2));
+            $sheet->setCellValue('H' . $row, number_format($report->bungaeir, 2));
             $sheet->setCellValue('I' . $row, $report->timegap);
+            $sheet->getStyle('I' . $row)->getNumberFormat()->setFormatCode('0.000000000000000'); // Format 15 desimal
             $sheet->setCellValue('J' . $row, number_format($report->outsamtconv, 2));
+            $sheet->setCellValue('K' . $row, number_format($cumulativeTimeGap, 15));
+            $sheet->getStyle('K' . $row)->getNumberFormat()->setFormatCode('0.000000000000000'); // Format 15 desimal
+
 
             // Mengatur font menjadi bold untuk setiap baris data
-            $sheet->getStyle('A' . $row . ':J' . $row)->getFont()->setBold(true);
+            $sheet->getStyle('A' . $row . ':K' . $row)->getFont()->setBold(true);
 
             // Menambahkan warna latar belakang alternatif pada baris data
             if ($row % 2 == 0) {
-                $sheet->getStyle('A' . $row . ':J' . $row)->getFill()->setFillType(Fill::FILL_SOLID);
-                $sheet->getStyle('A' . $row . ':J' . $row)->getFill()->getStartColor()->setARGB('FFEFEFEF'); // Warna latar belakang untuk baris genap
+                $sheet->getStyle('A' . $row . ':K' . $row)->getFill()->setFillType(Fill::FILL_SOLID);
+                $sheet->getStyle('A' . $row . ':K' . $row)->getFill()->getStartColor()->setARGB('FFEFEFEF'); // Warna latar belakang untuk baris genap
             }
 
             $row++;
@@ -135,20 +170,19 @@ class effectiveController extends Controller
                 ],
             ],
         ];
-
-        // Set border untuk header tabel
+        $sheet->getStyle('A13:K'.$row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('A12:J12')->applyFromArray($styleArray);
 
         // Set border untuk semua data laporan
-        $sheet->getStyle('A13:J' . ($row - 1))->applyFromArray($styleArray);
+        $sheet->getStyle('A13:K' . ($row - 1))->applyFromArray($styleArray);
 
         // Mengatur lebar kolom agar lebih rapi
-        foreach (range('A', 'J') as $columnID) {
+        foreach (range('A', 'K') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
         // Siapkan nama file
-        $filename = "accrual_interest_report_$no_acc.xlsx";
+        $filename = "accrual_interest_report_Effective_$no_acc.xlsx";
 
         // Buat writer dan simpan file Excel
         $writer = new Xlsx($spreadsheet);
@@ -158,12 +192,16 @@ class effectiveController extends Controller
         // Kembalikan response Excel
         return response()->download($temp_file, $filename)->deleteFileAfterSend(true);
     }
+
+
+
+
     // Method untuk mengekspor data ke PDF
-    public function exportPdf($no_acc)
+    public function exportPdf($no_acc,$id_pt)
 {
     // Ambil data loan dan reports
-    $loan = report_effective::getLoanDetails(trim($no_acc));
-    $reports = report_effective::getReportsByNoAcc(trim($no_acc));
+    $loan = report_effective::getLoanDetails($no_acc,$id_pt);
+    $reports = report_effective::getReportsByNoAcc($no_acc, $id_pt);
 
     // Cek apakah data loan dan reports ada
     if (!$loan || $reports->isEmpty()) {

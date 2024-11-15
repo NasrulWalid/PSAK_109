@@ -23,24 +23,27 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+{
+    $request->authenticate();
+    $request->session()->regenerate();
 
-        $request->session()->regenerate();
+    // Ambil id_pt dari pengguna yang sedang masuk
+    $loggedInUser = $request->user();
+    $idPt = $loggedInUser->id_pt; // pastikan id_pt tersedia di model pengguna
+// Tampilkan nilai id_pt
 
-        $loggedInUserRole = $request->user()->role;
-        // Super Admin
-        if ($loggedInUserRole == 'superadmin'){
-            return redirect()->intended(route('superadmin.dashboard', absolute: false));
-        }
-        // Admin
-        else if ($loggedInUserRole == 'admin' ){
-            return redirect()->intended(route('admin.dashboard', absolute: false));
-        }
-
-
-        return redirect()->intended(route('dashboard', absolute: false));
+    // Super Admin
+    if ($loggedInUser->role == 'superadmin') {
+        return redirect()->intended(route('superadmin.dashboard', ['id_pt' => $idPt], absolute: false));
     }
+    // Admin
+    else if ($loggedInUser->role == 'admin') {
+        return redirect()->intended(route('admin.dashboard', ['id_pt' => $idPt], absolute: false));
+    }
+
+    return redirect()->intended(route('dashboard', ['id_pt' => $idPt], absolute: false));
+}
+
 
 
     /**
