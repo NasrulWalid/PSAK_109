@@ -27,24 +27,27 @@ class AuthenticatedSessionController extends Controller
     $request->authenticate();
     $request->session()->regenerate();
 
-    // Ambil id_pt dari pengguna yang sedang masuk
+    // Ambil user yang login
     $loggedInUser = $request->user();
-    $idPt = $loggedInUser->id_pt; // pastikan id_pt tersedia di model pengguna
-// Tampilkan nilai id_pt
 
-    // Super Admin
+    // Ambil id_pt dari relasi PT
+    $id_pt = $loggedInUser->pt ;
+    // dd($id_pt);
+    // Debug nilai id_pt
+    if (is_null($id_pt)) {
+        return redirect()->route('login')->withErrors(['error' => 'ID PT tidak ditemukan untuk user ini.']);
+    }
+    // dd($idPt);
+
+    // Redirect berdasarkan peran user
     if ($loggedInUser->role == 'superadmin') {
-        return redirect()->intended(route('superadmin.dashboard', ['id_pt' => $idPt], absolute: false));
-    }
-    // Admin
-    else if ($loggedInUser->role == 'admin') {
-        return redirect()->intended(route('admin.dashboard', ['id_pt' => $idPt], absolute: false));
+        return redirect()->route('superadmin.dashboard', ['id_pt' => $id_pt]);
+    } elseif ($loggedInUser->role == 'admin') {
+        return redirect()->route('admin.dashboard', ['id_pt' => $id_pt]);
     }
 
-    return redirect()->intended(route('dashboard', ['id_pt' => $idPt], absolute: false));
+    return redirect()->route('dashboard', ['id_pt' => $id_pt]);
 }
-
-
 
     /**
      * Destroy an authenticated session.
@@ -54,7 +57,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

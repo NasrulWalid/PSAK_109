@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Report_simpleinterest extends Model
+class report_simpleinterest extends Model
 {
     // Mengganti tabel utama menjadi tblOBALCorporateLoan
     protected $table = 'public.tblobalcorporateloan';
@@ -24,7 +24,7 @@ class Report_simpleinterest extends Model
     // Method untuk mendapatkan semua pinjaman korporat
     public static function getCorporateLoans()
     {
-        return self::select('no_acc','no_branch', 'deb_name', 'org_bal', 'org_date','interest','eircalc_conv','eircalc_cost','eircalc','eircalc_fee','eirex', 'ln_type', 'mtr_date');
+        return self::select('no_acc','no_branch', 'deb_name', 'org_bal', 'org_date','interest','eircalc_conv','eircalc_cost','eircalc','eircalc_fee','eirex', 'ln_type', 'mtr_date','id_pt');
     }
 // Method untuk mendapatkan detail pinjaman berdasarkan nomor akun
 public static function getLoanDetails($no_acc, $id_pt)
@@ -44,7 +44,16 @@ public static function getLoanDetails($no_acc, $id_pt)
         return DB::table('public.tblcfobalcorporateloan')
             ->where('no_acc', $no_acc)
             ->where('id_pt', $id_pt)
+            ->orderBy('bulanke')
             ->get();
+    }
+    public static function getMasterDataByNoAcc($no_acc,$id_pt)
+    {
+        return DB::table('public.tblmaster_tmpcorporate')
+            ->where('no_acc', $no_acc)
+            ->where('id_pt', $id_pt)
+            ->select('*')
+            ->first();
     }
 
     public static function fetchAll($id_pt, $perPage = 10)
@@ -95,7 +104,7 @@ public static function getLoanDetails($no_acc, $id_pt)
 
             ->paginate($perPage);
             // Log data yang diambil
-    Log::info('Data fetched from tblobalcorporateloan and tblmaster_tmpcorporate', ['data' => $result]);
+    // Log::info('Data fetched from tblobalcorporateloan and tblmaster_tmpcorporate', ['data' => $result]);
 
     }
 }

@@ -150,7 +150,7 @@
 				</span>
 		</label>
 		<label>
-			<input  class="radio-input" type="radio" name="engine" value="simple" onchange="changeDashboard()">
+			<input  class="radio-input" type="radio" name="engine" value="simple" onchange="window.location.href='/admin/dashboard/simple_interest'">
 			<span class="radio-tile">
 				<span class="radio-icon">
                     <i class="fas fa-money-bill-wave"></i>
@@ -160,7 +160,7 @@
 		</label>
 		<label>
             <a href="/admin/dashboard/securities">
-			<input checked="" class="radio-input" type="radio" name="engine" value="securities" onchange="window.location.href='/admin/dashboard/securities'">
+			<input checked="" class="radio-input" type="radio" name="engine" value="securities" onchange="changeDashboard()">
 			<span class="radio-tile">
 				<span class="radio-icon">
                     <i class="fas fa-chart-line"></i>

@@ -7,6 +7,7 @@ use App\Http\Controllers\ManajemenControllerAdmin;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\dashboard\SecuritiesDashboardController;
+use App\Http\Controllers\dashboard\simple_interestDashboardController;
 // upload
 use App\Http\Controllers\upload\simple_interest\tblcorporateController;
 use App\Http\Controllers\upload\simple_interest\tblmasterController as tblmaster_SI;
@@ -99,12 +100,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/superadmin/dashboard', function () {
         return view('superadmin/dashboard');
     })->middleware('superadmin')->name('superadmin.dashboard');
+    //dashboard simpleinterest
+
+    Route::get('/admin/dashboard/simple_interest', [simple_interestDashboardController::class, 'index'])
+    ->middleware('admin')
+    ->name('admin.dashboard');
+    Route::get('/dashboard/simple_interest/debitur/{no_acc}', [simple_interestDashboardController::class, 'getDebiturInfo']);
     //dashboard securities
 
     Route::get('/admin/dashboard/securities', [SecuritiesDashboardController::class, 'index'])
     ->middleware('admin')
     ->name('admin.dashboard');
     Route::get('/dashboard/securities/debitur/{no_acc}', [SecuritiesDashboardController::class, 'getDebiturInfo']);
+
 });
 
 // Rute untuk halaman pricing user

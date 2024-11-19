@@ -8,6 +8,12 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    public function pt()
+    {
+        return $this->belongsTo(model_pt::class, 'id_pt', 'id_pt'); // Menggunakan 'id_pt' sebagai kunci utama
+    }
+
+
     use HasFactory, Notifiable;
 
     /**

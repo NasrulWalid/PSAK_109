@@ -151,7 +151,7 @@
 				</span>
 		</label>
 		<label>
-			<input  class="radio-input" type="radio" name="engine" value="simple" onchange="changeDashboard()">
+			<input  class="radio-input" type="radio" name="engine" value="simple" onchange="window.location.href='/admin/dashboard/simple_interest'">
 			<span class="radio-tile">
 				<span class="radio-icon">
                     <i class="fas fa-money-bill-wave"></i>
@@ -383,7 +383,7 @@
                                             $totalOutstanding = 0;
                                         @endphp
                                         @foreach($loans as $index => $loan)
-                                        <tr class="{{ $loan->no_acc === $defaultNoAcc ? 'active-row' : '' }}">
+                                        <tr class="{{ $loan->no_acc === $defaultNoAcc ? 'active-row' : '' }}"active-row="">
                                             <td>{{ $index + 1 }}</td>
                                             <td>
                                                 <a href="javascript:void(0);"

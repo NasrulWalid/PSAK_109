@@ -12,6 +12,8 @@ class model_pt extends Model
     protected $table = 'tbl_pt';
 
     protected $primaryKey = 'id_pt';
+    public $incrementing = false; // Jangan auto increment
+    public $timestamps = false; // Nonaktifkan timestamps
 
     protected $fillable = [
         'nama_pt',
